@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 2048 2048">
+	<clipPath id="cut-off-up">
+		<rect x="0" y="0" width="2048" height="1024" transform="rotate(-45, 1024, 1024)"/>
+	</clipPath>
+	<clipPath id="cut-off-down">
+		<rect x="0" y="1023" width="2048" height="1024" transform="rotate(-45, 1024, 1024)"/>
+	</clipPath>
+
+	<circle fill-opacity="0.6" r="896" cx="1024" cy="1024" fill="#ff9900" clip-path="url(#cut-off-up)"/>
+	<circle fill-opacity="0.6" r="896" cx="1024" cy="1024" fill="#40b6e0" clip-path="url(#cut-off-down)"/>
+	<g transform="scale(1)"><path fill-opacity="0.7" transform="translate(286.72, 1556) rotate(180) scale(-1, 1)" fill="#231f20" d="M1061 57q-74 -43 -152.5 -64.5t-160.5 -21.5q-260 0 -406.5 156t-146.5 432t146.5 432t406.5 156q81 0 158 -21t155 -65v-193q-73 65 -146.5 94t-166.5 29q-173 0 -266 -112t-93 -320q0 -207 93.5 -319.5t265.5 -112.5q96 0 172 29.5t141 91.5v-191z"></path></g>
+</svg>

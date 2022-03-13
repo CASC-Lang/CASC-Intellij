@@ -1,0 +1,42 @@
+// This is a generated file. Not intended for manual editing.
+package org.casc.lang.psi;
+
+import org.jetbrains.annotations.*;
+import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.PsiElement;
+
+public class CASCVisitor extends PsiElementVisitor {
+
+  public void visitAccessModifiers(@NotNull CASCAccessModifiers o) {
+    visitPsiElement(o);
+  }
+
+  public void visitClassDeclaration(@NotNull CASCClassDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitClassFields(@NotNull CASCClassFields o) {
+    visitPsiElement(o);
+  }
+
+  public void visitComplexType(@NotNull CASCComplexType o) {
+    visitPsiElement(o);
+  }
+
+  public void visitField(@NotNull CASCField o) {
+    visitPsiElement(o);
+  }
+
+  public void visitImplementation(@NotNull CASCImplementation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMutableModifier(@NotNull CASCMutableModifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPsiElement(@NotNull PsiElement o) {
+    visitElement(o);
+  }
+
+}

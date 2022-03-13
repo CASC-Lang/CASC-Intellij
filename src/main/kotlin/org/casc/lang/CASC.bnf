@@ -1,0 +1,36 @@
+{
+  parserClass="org.casc.lang.parser.CASCParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="CASC"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.casc.lang.psi"
+  psiImplPackage="org.casc.lang.psi.impl"
+
+  elementTypeHolderClass="org.casc.lang.psi.CASCTypes"
+  elementTypeClass="org.casc.lang.psi.CASCElementType"
+  tokenTypeClass="org.casc.lang.psi.CASCTokenType"
+
+  tokens = [
+    COMMENT     = 'regexp:\/\/\w+'
+    IDENTIFIER  = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
+    WHITE_SPACE = 'regexp:\s+'
+  ]
+}
+
+cascFile ::= (classDeclaration )? implementation*
+
+accessModifiers ::= PUB | PROT | INTL | PRIV
+
+mutableModifier ::= MUT
+
+complexType ::= IDENTIFIER (OPEN_BRACKET CLOSE_BRACKET)*
+
+classDeclaration ::= accessModifiers? mutableModifier? CLASS IDENTIFIER (OPEN_BRACE classFields+ CLOSE_BRACE)?
+
+classFields ::= (COMP OPEN_BRACE classFields CLOSE_BRACE) | (accessModifiers? mutableModifier? COLON field+)
+
+field ::= IDENTIFIER COLON complexType
+
+implementation ::= IMPL IDENTIFIER (OPEN_BRACE CLOSE_BRACE)?

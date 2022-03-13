@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>org.example.CASC-Intellij</id>
+    <name>CASC Lang</name>
+    <vendor email="minecraft.kyle.train@gmail.com">CASC Lang Org</vendor>
+
+    <description><![CDATA[
+    Official CASC Programming Language Plugin for Intellij IDEA
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="CASC Class File"
+                  implementationClass="org.casc.lang.filetypes.CASCFileType"
+                  fieldName="INSTANCE"
+                  language="CASC"
+                  extensions="casc"/>
+        <lang.parserDefinition language="CASC"
+                               implementationClass="org.casc.lang.CASCParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="CASC"
+                                       implementationClass="org.casc.lang.CASCSyntaxHighlighterFactory"/>
+        <colorSettingsPage implementation="org.casc.lang.CASCColorSettingsPage"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
