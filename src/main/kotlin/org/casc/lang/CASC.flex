@@ -63,6 +63,7 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     ":="                    { return COLON_EQUAL; }
     "::"                    { return DOUBLE_COLON; }
     ","                     { return COMMA; }
+    "."                     { return DOT; }
 
     "\""                    { yybegin(STRING); return DOUBLE_QUOTE; }
     "\'"                    { yybegin(STRING); return QUOTE; }

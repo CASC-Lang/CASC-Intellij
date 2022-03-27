@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCArrayInitializationImpl extends ASTWrapperPsiElement implements CASCArrayInitialization {
+public class CASCFunctionCallImpl extends ASTWrapperPsiElement implements CASCFunctionCall {
 
-  public CASCArrayInitializationImpl(@NotNull ASTNode node) {
+  public CASCFunctionCallImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitArrayInitialization(this);
+    visitor.visitFunctionCall(this);
   }
 
   @Override
@@ -31,12 +31,6 @@ public class CASCArrayInitializationImpl extends ASTWrapperPsiElement implements
   @NotNull
   public CASCArgumentList getArgumentList() {
     return findNotNullChildByClass(CASCArgumentList.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCType getType() {
-    return findChildByClass(CASCType.class);
   }
 
 }

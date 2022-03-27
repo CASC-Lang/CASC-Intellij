@@ -48,8 +48,8 @@ class CASCSyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> = when (tokenType) {
         null -> EMPTY_KEYS
         CASCTypes.PUB, CASCTypes.PROT, CASCTypes.INTL, CASCTypes.PRIV, CASCTypes.MUT, CASCTypes.CLASS, CASCTypes.IMPL,
-        CASCTypes.PACKAGE, CASCTypes.USE, CASCTypes.FN, CASCTypes.NEW, CASCTypes.AS, CASCTypes.TRUE, CASCTypes.FALSE,
-        CASCTypes.NULL, CASCTypes.SELF -> KEYWORD_KEYS
+        CASCTypes.PACKAGE, CASCTypes.USE, CASCTypes.COMP, CASCTypes.FN, CASCTypes.NEW, CASCTypes.AS, CASCTypes.TRUE,
+        CASCTypes.FALSE, CASCTypes.NULL, CASCTypes.SELF -> KEYWORD_KEYS
         CASCTypes.TYPE -> TYPE_KEYS
         CASCTypes.INTEGER_LITERAL, CASCTypes.FLOAT_LITERAL -> NUMBER_KEYS
         CASCTypes.STRING_CHAR, CASCTypes.QUOTE, CASCTypes.DOUBLE_QUOTE -> STRING_KEYS

@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCArrayInitialization extends PsiElement {
-
-  @NotNull
-  CASCArgumentList getArgumentList();
+public interface CASCMemberExpression extends PsiElement {
 
   @Nullable
-  CASCType getType();
+  CASCFunctionCall getFunctionCall();
+
+  @Nullable
+  CASCMemberExpression getMemberExpression();
 
 }

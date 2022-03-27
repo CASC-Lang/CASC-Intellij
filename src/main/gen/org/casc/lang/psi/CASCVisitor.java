@@ -11,6 +11,10 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitArgumentList(@NotNull CASCArgumentList o) {
+    visitPsiElement(o);
+  }
+
   public void visitArrayDeclaration(@NotNull CASCArrayDeclaration o) {
     visitPsiElement(o);
   }
@@ -35,6 +39,10 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitConstructorCall(@NotNull CASCConstructorCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitConstructorDeclaration(@NotNull CASCConstructorDeclaration o) {
     visitPsiElement(o);
   }
@@ -47,6 +55,10 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunctionCall(@NotNull CASCFunctionCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunctionDeclaration(@NotNull CASCFunctionDeclaration o) {
     visitPsiElement(o);
   }
@@ -55,7 +67,11 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLiteralValue(@NotNull CASCLiteralValue o) {
+  public void visitLiteralExpression(@NotNull CASCLiteralExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMemberExpression(@NotNull CASCMemberExpression o) {
     visitPsiElement(o);
   }
 

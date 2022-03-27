@@ -5,6 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCLiteralValue extends PsiElement {
+public interface CASCArgumentList extends PsiElement {
+
+  @NotNull
+  List<CASCExpression> getExpressionList();
 
 }

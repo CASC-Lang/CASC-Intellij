@@ -50,11 +50,21 @@ statement               ::= variableDeclaration | expression
 
 variableDeclaration     ::= IDENTIFIER COLON_EQUAL expression
 
-expression              ::= literalValue
+expression              ::= literalExpression
                         | arrayInitialization
                         | arrayDeclaration
+                        | constructorCall
+                        | memberExpression
 
-literalValue            ::= NULL
+memberExpression        ::= (functionCall | IDENTIFIER) (DOT memberExpression)?
+
+constructorCall         ::= NEW type OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
+
+functionCall            ::= IDENTIFIER OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
+
+argumentList            ::= (expression (COMMA expression)*)?
+
+literalExpression       ::= NULL
                         | TRUE
                         | FALSE
                         | (DOUBLE_QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* DOUBLE_QUOTE)
@@ -62,6 +72,6 @@ literalValue            ::= NULL
                         | INTEGER_LITERAL
                         | FLOAT_LITERAL
 
-arrayInitialization     ::= ((type COLON (OPEN_BRACKET CLOSE_BRACKET)+) | COLON) OPEN_BRACE (expression (COMMA expression)*)? CLOSE_BRACE
+arrayInitialization     ::= ((type COLON (OPEN_BRACKET CLOSE_BRACKET)+) | COLON) OPEN_BRACE argumentList CLOSE_BRACE
 
 arrayDeclaration        ::= type COLON (OPEN_BRACKET expression CLOSE_BRACKET)+ OPEN_BRACE CLOSE_BRACE

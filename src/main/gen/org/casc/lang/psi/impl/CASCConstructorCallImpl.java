@@ -11,20 +11,32 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCLiteralValueImpl extends ASTWrapperPsiElement implements CASCLiteralValue {
+public class CASCConstructorCallImpl extends ASTWrapperPsiElement implements CASCConstructorCall {
 
-  public CASCLiteralValueImpl(@NotNull ASTNode node) {
+  public CASCConstructorCallImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitLiteralValue(this);
+    visitor.visitConstructorCall(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof CASCVisitor) accept((CASCVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public CASCArgumentList getArgumentList() {
+    return findNotNullChildByClass(CASCArgumentList.class);
+  }
+
+  @Override
+  @NotNull
+  public CASCType getType() {
+    return findNotNullChildByClass(CASCType.class);
   }
 
 }

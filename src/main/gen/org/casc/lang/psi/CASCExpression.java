@@ -14,6 +14,12 @@ public interface CASCExpression extends PsiElement {
   CASCArrayInitialization getArrayInitialization();
 
   @Nullable
-  CASCLiteralValue getLiteralValue();
+  CASCConstructorCall getConstructorCall();
+
+  @Nullable
+  CASCLiteralExpression getLiteralExpression();
+
+  @Nullable
+  CASCMemberExpression getMemberExpression();
 
 }

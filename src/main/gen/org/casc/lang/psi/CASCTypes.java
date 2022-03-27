@@ -9,18 +9,22 @@ import org.casc.lang.psi.impl.*;
 public interface CASCTypes {
 
   IElementType ACCESS_MODIFIERS = new CASCElementType("ACCESS_MODIFIERS");
+  IElementType ARGUMENT_LIST = new CASCElementType("ARGUMENT_LIST");
   IElementType ARRAY_DECLARATION = new CASCElementType("ARRAY_DECLARATION");
   IElementType ARRAY_INITIALIZATION = new CASCElementType("ARRAY_INITIALIZATION");
   IElementType CLASS_DECLARATION = new CASCElementType("CLASS_DECLARATION");
   IElementType CLASS_FIELDS = new CASCElementType("CLASS_FIELDS");
   IElementType COMPANION_BLOCK = new CASCElementType("COMPANION_BLOCK");
   IElementType COMPLEX_TYPE = new CASCElementType("COMPLEX_TYPE");
+  IElementType CONSTRUCTOR_CALL = new CASCElementType("CONSTRUCTOR_CALL");
   IElementType CONSTRUCTOR_DECLARATION = new CASCElementType("CONSTRUCTOR_DECLARATION");
   IElementType EXPRESSION = new CASCElementType("EXPRESSION");
   IElementType FIELD = new CASCElementType("FIELD");
+  IElementType FUNCTION_CALL = new CASCElementType("FUNCTION_CALL");
   IElementType FUNCTION_DECLARATION = new CASCElementType("FUNCTION_DECLARATION");
   IElementType IMPLEMENTATION = new CASCElementType("IMPLEMENTATION");
-  IElementType LITERAL_VALUE = new CASCElementType("LITERAL_VALUE");
+  IElementType LITERAL_EXPRESSION = new CASCElementType("LITERAL_EXPRESSION");
+  IElementType MEMBER_EXPRESSION = new CASCElementType("MEMBER_EXPRESSION");
   IElementType MUTABLE_MODIFIER = new CASCElementType("MUTABLE_MODIFIER");
   IElementType PACKAGE_DECLARATION = new CASCElementType("PACKAGE_DECLARATION");
   IElementType PARAMETER_LIST = new CASCElementType("PARAMETER_LIST");
@@ -39,6 +43,7 @@ public interface CASCTypes {
   IElementType COMMA = new CASCTokenType("COMMA");
   IElementType COMMENT = new CASCTokenType("COMMENT");
   IElementType COMP = new CASCTokenType("COMP");
+  IElementType DOT = new CASCTokenType("DOT");
   IElementType DOUBLE_COLON = new CASCTokenType("DOUBLE_COLON");
   IElementType DOUBLE_QUOTE = new CASCTokenType("DOUBLE_QUOTE");
   IElementType ESCAPED_STRING_CHAR = new CASCTokenType("ESCAPED_STRING_CHAR");
@@ -72,6 +77,9 @@ public interface CASCTypes {
       if (type == ACCESS_MODIFIERS) {
         return new CASCAccessModifiersImpl(node);
       }
+      else if (type == ARGUMENT_LIST) {
+        return new CASCArgumentListImpl(node);
+      }
       else if (type == ARRAY_DECLARATION) {
         return new CASCArrayDeclarationImpl(node);
       }
@@ -90,6 +98,9 @@ public interface CASCTypes {
       else if (type == COMPLEX_TYPE) {
         return new CASCComplexTypeImpl(node);
       }
+      else if (type == CONSTRUCTOR_CALL) {
+        return new CASCConstructorCallImpl(node);
+      }
       else if (type == CONSTRUCTOR_DECLARATION) {
         return new CASCConstructorDeclarationImpl(node);
       }
@@ -99,14 +110,20 @@ public interface CASCTypes {
       else if (type == FIELD) {
         return new CASCFieldImpl(node);
       }
+      else if (type == FUNCTION_CALL) {
+        return new CASCFunctionCallImpl(node);
+      }
       else if (type == FUNCTION_DECLARATION) {
         return new CASCFunctionDeclarationImpl(node);
       }
       else if (type == IMPLEMENTATION) {
         return new CASCImplementationImpl(node);
       }
-      else if (type == LITERAL_VALUE) {
-        return new CASCLiteralValueImpl(node);
+      else if (type == LITERAL_EXPRESSION) {
+        return new CASCLiteralExpressionImpl(node);
+      }
+      else if (type == MEMBER_EXPRESSION) {
+        return new CASCMemberExpressionImpl(node);
       }
       else if (type == MUTABLE_MODIFIER) {
         return new CASCMutableModifierImpl(node);

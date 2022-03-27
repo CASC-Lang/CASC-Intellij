@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCPackage extends PsiElement {
+public interface CASCFunctionCall extends PsiElement {
 
   @NotNull
-  CASCType getType();
+  CASCArgumentList getArgumentList();
 
 }
