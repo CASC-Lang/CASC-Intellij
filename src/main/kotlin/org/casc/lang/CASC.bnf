@@ -54,7 +54,13 @@ expression              ::= literalValue
                         | arrayInitialization
                         | arrayDeclaration
 
-literalValue            ::= NULL | TRUE | FALSE | STRING_LITERAL | CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL
+literalValue            ::= NULL
+                        | TRUE
+                        | FALSE
+                        | (DOUBLE_QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* DOUBLE_QUOTE)
+                        | (QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* QUOTE)
+                        | INTEGER_LITERAL
+                        | FLOAT_LITERAL
 
 arrayInitialization     ::= ((type COLON (OPEN_BRACKET CLOSE_BRACKET)+) | COLON) OPEN_BRACE (expression (COMMA expression)*)? CLOSE_BRACE
 

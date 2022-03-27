@@ -25,10 +25,10 @@ IDENTIFIER          = [a-zA-Z_][a-zA-Z0-9_]*
 DIGIT               = [0-9]*
 WHITE_SPACE         = [ \t\n\x0B\f\r]+
 
-STRING_LITERAL      = \"([^\\\"]|\\t|\\b|\\n|\\r|\\f|\\\'|\\\"|\\\\|\\u[0-9A-Fa-f]{4})*\"
-CHAR_LITERAL        = \'([^\\\']|\\t|\\b|\\n|\\r|\\f|\\\'|\\\"|\\\\|\\u[0-9A-Fa-f]{4})\'
 INTEGER_LITERAL     = {DIGIT}("B" | "S" | "I" | "L")?
 FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
+
+%s STRING
 
 %%
 <YYINITIAL> {
@@ -64,14 +64,30 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     "::"                    { return DOUBLE_COLON; }
     ","                     { return COMMA; }
 
+    "\""                    { yybegin(STRING); return DOUBLE_QUOTE; }
+    "\'"                    { yybegin(STRING); return QUOTE; }
+
     {LineTerminator}        { return TokenType.WHITE_SPACE; }
     {IDENTIFIER}            { return IDENTIFIER; }
     {WHITE_SPACE}           { return TokenType.WHITE_SPACE; }
-    {STRING_LITERAL}        { return STRING_LITERAL; }
-    {CHAR_LITERAL}          { return CHAR_LITERAL; }
     {INTEGER_LITERAL}       { return INTEGER_LITERAL; }
     {FLOAT_LITERAL}         { return FLOAT_LITERAL; }
     {COMMENT}               { return COMMENT; }
+}
+
+<STRING> {
+    "\""                    { yybegin(YYINITIAL); return DOUBLE_QUOTE; }
+    "\'"                    { yybegin(YYINITIAL); return QUOTE; }
+    "\\\\"                  { return ESCAPED_STRING_CHAR; }
+    "\\t"                   { return ESCAPED_STRING_CHAR; }
+    "\\b"                   { return ESCAPED_STRING_CHAR; }
+    "\\n"                   { return ESCAPED_STRING_CHAR; }
+    "\\r"                   { return ESCAPED_STRING_CHAR; }
+    "\\f"                   { return ESCAPED_STRING_CHAR; }
+    "\\\'"                  { return ESCAPED_STRING_CHAR; }
+    "\\\""                  { return ESCAPED_STRING_CHAR; }
+    \\u[0-9A-Fa-f]{4}       { return ESCAPED_STRING_CHAR; }
+    [^]                     { return STRING_CHAR; }
 }
 
 [^] { return TokenType.BAD_CHARACTER; }

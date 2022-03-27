@@ -30,7 +30,6 @@ public interface CASCTypes {
   IElementType VARIABLE_DECLARATION = new CASCElementType("VARIABLE_DECLARATION");
 
   IElementType AS = new CASCTokenType("AS");
-  IElementType CHAR_LITERAL = new CASCTokenType("CHAR_LITERAL");
   IElementType CLASS = new CASCTokenType("CLASS");
   IElementType CLOSE_BRACE = new CASCTokenType("CLOSE_BRACE");
   IElementType CLOSE_BRACKET = new CASCTokenType("CLOSE_BRACKET");
@@ -41,6 +40,8 @@ public interface CASCTypes {
   IElementType COMMENT = new CASCTokenType("COMMENT");
   IElementType COMP = new CASCTokenType("COMP");
   IElementType DOUBLE_COLON = new CASCTokenType("DOUBLE_COLON");
+  IElementType DOUBLE_QUOTE = new CASCTokenType("DOUBLE_QUOTE");
+  IElementType ESCAPED_STRING_CHAR = new CASCTokenType("ESCAPED_STRING_CHAR");
   IElementType FALSE = new CASCTokenType("FALSE");
   IElementType FLOAT_LITERAL = new CASCTokenType("FLOAT_LITERAL");
   IElementType FN = new CASCTokenType("FN");
@@ -58,8 +59,9 @@ public interface CASCTypes {
   IElementType PRIV = new CASCTokenType("PRIV");
   IElementType PROT = new CASCTokenType("PROT");
   IElementType PUB = new CASCTokenType("PUB");
+  IElementType QUOTE = new CASCTokenType("QUOTE");
   IElementType SELF = new CASCTokenType("SELF");
-  IElementType STRING_LITERAL = new CASCTokenType("STRING_LITERAL");
+  IElementType STRING_CHAR = new CASCTokenType("STRING_CHAR");
   IElementType SUPER = new CASCTokenType("SUPER");
   IElementType TRUE = new CASCTokenType("TRUE");
   IElementType USE = new CASCTokenType("USE");

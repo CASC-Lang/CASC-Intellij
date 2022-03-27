@@ -659,7 +659,13 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // NULL | TRUE | FALSE | STRING_LITERAL | CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL
+  // NULL 
+  //                         | TRUE 
+  //                         | FALSE 
+  //                         | (DOUBLE_QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* DOUBLE_QUOTE) 
+  //                         | (QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* QUOTE) 
+  //                         | INTEGER_LITERAL 
+  //                         | FLOAT_LITERAL
   public static boolean literalValue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "literalValue")) return false;
     boolean r;
@@ -667,11 +673,75 @@ public class CASCParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, NULL);
     if (!r) r = consumeToken(b, TRUE);
     if (!r) r = consumeToken(b, FALSE);
-    if (!r) r = consumeToken(b, STRING_LITERAL);
-    if (!r) r = consumeToken(b, CHAR_LITERAL);
+    if (!r) r = literalValue_3(b, l + 1);
+    if (!r) r = literalValue_4(b, l + 1);
     if (!r) r = consumeToken(b, INTEGER_LITERAL);
     if (!r) r = consumeToken(b, FLOAT_LITERAL);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // DOUBLE_QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* DOUBLE_QUOTE
+  private static boolean literalValue_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literalValue_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DOUBLE_QUOTE);
+    r = r && literalValue_3_1(b, l + 1);
+    r = r && consumeToken(b, DOUBLE_QUOTE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (STRING_CHAR | ESCAPED_STRING_CHAR)*
+  private static boolean literalValue_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literalValue_3_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!literalValue_3_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "literalValue_3_1", c)) break;
+    }
+    return true;
+  }
+
+  // STRING_CHAR | ESCAPED_STRING_CHAR
+  private static boolean literalValue_3_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literalValue_3_1_0")) return false;
+    boolean r;
+    r = consumeToken(b, STRING_CHAR);
+    if (!r) r = consumeToken(b, ESCAPED_STRING_CHAR);
+    return r;
+  }
+
+  // QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* QUOTE
+  private static boolean literalValue_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literalValue_4")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, QUOTE);
+    r = r && literalValue_4_1(b, l + 1);
+    r = r && consumeToken(b, QUOTE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (STRING_CHAR | ESCAPED_STRING_CHAR)*
+  private static boolean literalValue_4_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literalValue_4_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!literalValue_4_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "literalValue_4_1", c)) break;
+    }
+    return true;
+  }
+
+  // STRING_CHAR | ESCAPED_STRING_CHAR
+  private static boolean literalValue_4_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literalValue_4_1_0")) return false;
+    boolean r;
+    r = consumeToken(b, STRING_CHAR);
+    if (!r) r = consumeToken(b, ESCAPED_STRING_CHAR);
     return r;
   }
 

@@ -21,6 +21,8 @@ class CASCSyntaxHighlighter : SyntaxHighlighterBase() {
             createTextAttributesKey("CASC_NUMBER", DefaultLanguageHighlighterColors.NUMBER)
         val STRING =
             createTextAttributesKey("CASC_STRING", DefaultLanguageHighlighterColors.STRING)
+        val ESCAPED_STRING =
+            createTextAttributesKey("CASC_ESCAPED_STRING", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE)
         val COMMENT =
             createTextAttributesKey("CASC_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT)
         val IDENTIFIER =
@@ -33,6 +35,7 @@ class CASCSyntaxHighlighter : SyntaxHighlighterBase() {
         private val TYPE_KEYS = arrayOf(TYPE)
         private val NUMBER_KEYS = arrayOf(NUMBER)
         private val STRING_KEYS = arrayOf(STRING)
+        private val ESCAPED_STRING_KEYS = arrayOf(ESCAPED_STRING)
         private val COMMENT_KEYS = arrayOf(COMMENT)
         private val IDENTIFIER_KEYS = arrayOf(IDENTIFIER)
         private val BAD_CHAR_KEYS = arrayOf(BAD_CHARACTER)
@@ -49,7 +52,8 @@ class CASCSyntaxHighlighter : SyntaxHighlighterBase() {
         CASCTypes.NULL, CASCTypes.SELF -> KEYWORD_KEYS
         CASCTypes.TYPE -> TYPE_KEYS
         CASCTypes.INTEGER_LITERAL, CASCTypes.FLOAT_LITERAL -> NUMBER_KEYS
-        CASCTypes.STRING_LITERAL, CASCTypes.CHAR_LITERAL -> STRING_KEYS
+        CASCTypes.STRING_CHAR, CASCTypes.QUOTE, CASCTypes.DOUBLE_QUOTE -> STRING_KEYS
+        CASCTypes.ESCAPED_STRING_CHAR -> ESCAPED_STRING_KEYS
         CASCTypes.IDENTIFIER -> IDENTIFIER_KEYS
         CASCTypes.COMMENT -> COMMENT_KEYS
         TokenType.BAD_CHARACTER -> BAD_CHAR_KEYS
