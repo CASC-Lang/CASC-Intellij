@@ -428,7 +428,68 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // literalValue | arrayInitialization | arrayDeclaration
+  // NEW OPEN_PARENTHESES parameterList CLOSE_PARENTHESES (COLON (SELF | SUPER) OPEN_PARENTHESES parameterList CLOSE_PARENTHESES)? OPEN_BRACE statement* CLOSE_BRACE
+  public static boolean constructorDeclaration(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "constructorDeclaration")) return false;
+    if (!nextTokenIs(b, NEW)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, NEW, OPEN_PARENTHESES);
+    r = r && parameterList(b, l + 1);
+    r = r && consumeToken(b, CLOSE_PARENTHESES);
+    r = r && constructorDeclaration_4(b, l + 1);
+    r = r && consumeToken(b, OPEN_BRACE);
+    r = r && constructorDeclaration_6(b, l + 1);
+    r = r && consumeToken(b, CLOSE_BRACE);
+    exit_section_(b, m, CONSTRUCTOR_DECLARATION, r);
+    return r;
+  }
+
+  // (COLON (SELF | SUPER) OPEN_PARENTHESES parameterList CLOSE_PARENTHESES)?
+  private static boolean constructorDeclaration_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "constructorDeclaration_4")) return false;
+    constructorDeclaration_4_0(b, l + 1);
+    return true;
+  }
+
+  // COLON (SELF | SUPER) OPEN_PARENTHESES parameterList CLOSE_PARENTHESES
+  private static boolean constructorDeclaration_4_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "constructorDeclaration_4_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COLON);
+    r = r && constructorDeclaration_4_0_1(b, l + 1);
+    r = r && consumeToken(b, OPEN_PARENTHESES);
+    r = r && parameterList(b, l + 1);
+    r = r && consumeToken(b, CLOSE_PARENTHESES);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // SELF | SUPER
+  private static boolean constructorDeclaration_4_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "constructorDeclaration_4_0_1")) return false;
+    boolean r;
+    r = consumeToken(b, SELF);
+    if (!r) r = consumeToken(b, SUPER);
+    return r;
+  }
+
+  // statement*
+  private static boolean constructorDeclaration_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "constructorDeclaration_6")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!statement(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "constructorDeclaration_6", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // literalValue
+  //                         | arrayInitialization
+  //                         | arrayDeclaration
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
     boolean r;
@@ -454,7 +515,72 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IMPL IDENTIFIER (COLON type)? (OPEN_BRACE companionBlock? CLOSE_BRACE)?
+  // FN IDENTIFIER OPEN_PARENTHESES (SELF COMMA)? parameterList CLOSE_PARENTHESES (COLON complexType)? OPEN_BRACE statement* CLOSE_BRACE
+  public static boolean functionDeclaration(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDeclaration")) return false;
+    if (!nextTokenIs(b, FN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, FN, IDENTIFIER, OPEN_PARENTHESES);
+    r = r && functionDeclaration_3(b, l + 1);
+    r = r && parameterList(b, l + 1);
+    r = r && consumeToken(b, CLOSE_PARENTHESES);
+    r = r && functionDeclaration_6(b, l + 1);
+    r = r && consumeToken(b, OPEN_BRACE);
+    r = r && functionDeclaration_8(b, l + 1);
+    r = r && consumeToken(b, CLOSE_BRACE);
+    exit_section_(b, m, FUNCTION_DECLARATION, r);
+    return r;
+  }
+
+  // (SELF COMMA)?
+  private static boolean functionDeclaration_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDeclaration_3")) return false;
+    functionDeclaration_3_0(b, l + 1);
+    return true;
+  }
+
+  // SELF COMMA
+  private static boolean functionDeclaration_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDeclaration_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, SELF, COMMA);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (COLON complexType)?
+  private static boolean functionDeclaration_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDeclaration_6")) return false;
+    functionDeclaration_6_0(b, l + 1);
+    return true;
+  }
+
+  // COLON complexType
+  private static boolean functionDeclaration_6_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDeclaration_6_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COLON);
+    r = r && complexType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // statement*
+  private static boolean functionDeclaration_8(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDeclaration_8")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!statement(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "functionDeclaration_8", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // IMPL IDENTIFIER (COLON type)? (OPEN_BRACE companionBlock? (functionDeclaration | constructorDeclaration)* CLOSE_BRACE)?
   public static boolean implementation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "implementation")) return false;
     if (!nextTokenIs(b, IMPL)) return false;
@@ -485,20 +611,21 @@ public class CASCParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (OPEN_BRACE companionBlock? CLOSE_BRACE)?
+  // (OPEN_BRACE companionBlock? (functionDeclaration | constructorDeclaration)* CLOSE_BRACE)?
   private static boolean implementation_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "implementation_3")) return false;
     implementation_3_0(b, l + 1);
     return true;
   }
 
-  // OPEN_BRACE companionBlock? CLOSE_BRACE
+  // OPEN_BRACE companionBlock? (functionDeclaration | constructorDeclaration)* CLOSE_BRACE
   private static boolean implementation_3_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "implementation_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, OPEN_BRACE);
     r = r && implementation_3_0_1(b, l + 1);
+    r = r && implementation_3_0_2(b, l + 1);
     r = r && consumeToken(b, CLOSE_BRACE);
     exit_section_(b, m, null, r);
     return r;
@@ -509,6 +636,26 @@ public class CASCParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "implementation_3_0_1")) return false;
     companionBlock(b, l + 1);
     return true;
+  }
+
+  // (functionDeclaration | constructorDeclaration)*
+  private static boolean implementation_3_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implementation_3_0_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!implementation_3_0_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "implementation_3_0_2", c)) break;
+    }
+    return true;
+  }
+
+  // functionDeclaration | constructorDeclaration
+  private static boolean implementation_3_0_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implementation_3_0_2_0")) return false;
+    boolean r;
+    r = functionDeclaration(b, l + 1);
+    if (!r) r = constructorDeclaration(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -550,6 +697,42 @@ public class CASCParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, PACKAGE);
     r = r && type(b, l + 1);
     exit_section_(b, m, PACKAGE_DECLARATION, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // IDENTIFIER COLON complexType (COMMA IDENTIFIER COLON complexType)*
+  public static boolean parameterList(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "parameterList")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, IDENTIFIER, COLON);
+    r = r && complexType(b, l + 1);
+    r = r && parameterList_3(b, l + 1);
+    exit_section_(b, m, PARAMETER_LIST, r);
+    return r;
+  }
+
+  // (COMMA IDENTIFIER COLON complexType)*
+  private static boolean parameterList_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "parameterList_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!parameterList_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "parameterList_3", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA IDENTIFIER COLON complexType
+  private static boolean parameterList_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "parameterList_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, COMMA, IDENTIFIER, COLON);
+    r = r && complexType(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 

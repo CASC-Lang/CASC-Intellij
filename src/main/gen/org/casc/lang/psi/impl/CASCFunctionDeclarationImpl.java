@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCImplementationImpl extends ASTWrapperPsiElement implements CASCImplementation {
+public class CASCFunctionDeclarationImpl extends ASTWrapperPsiElement implements CASCFunctionDeclaration {
 
-  public CASCImplementationImpl(@NotNull ASTNode node) {
+  public CASCFunctionDeclarationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitImplementation(this);
+    visitor.visitFunctionDeclaration(this);
   }
 
   @Override
@@ -29,26 +29,20 @@ public class CASCImplementationImpl extends ASTWrapperPsiElement implements CASC
 
   @Override
   @Nullable
-  public CASCCompanionBlock getCompanionBlock() {
-    return findChildByClass(CASCCompanionBlock.class);
+  public CASCComplexType getComplexType() {
+    return findChildByClass(CASCComplexType.class);
   }
 
   @Override
   @NotNull
-  public List<CASCConstructorDeclaration> getConstructorDeclarationList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCConstructorDeclaration.class);
+  public CASCParameterList getParameterList() {
+    return findNotNullChildByClass(CASCParameterList.class);
   }
 
   @Override
   @NotNull
-  public List<CASCFunctionDeclaration> getFunctionDeclarationList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCFunctionDeclaration.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCType getType() {
-    return findChildByClass(CASCType.class);
+  public List<CASCStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCStatement.class);
   }
 
 }

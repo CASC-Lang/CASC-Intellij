@@ -35,11 +35,19 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitConstructorDeclaration(@NotNull CASCConstructorDeclaration o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpression(@NotNull CASCExpression o) {
     visitPsiElement(o);
   }
 
   public void visitField(@NotNull CASCField o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunctionDeclaration(@NotNull CASCFunctionDeclaration o) {
     visitPsiElement(o);
   }
 
@@ -56,6 +64,10 @@ public class CASCVisitor extends PsiElementVisitor {
   }
 
   public void visitPackageDeclaration(@NotNull CASCPackageDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParameterList(@NotNull CASCParameterList o) {
     visitPsiElement(o);
   }
 

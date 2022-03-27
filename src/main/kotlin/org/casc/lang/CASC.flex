@@ -43,9 +43,13 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     "intl"                  { return INTL; }
     "priv"                  { return PRIV; }
     "impl"                  { return IMPL; }
+    "fn"                    { return FN; }
+    "new"                   { return NEW; }
+    "super"                 { return SUPER; }
     "true"                  { return TRUE; }
     "false"                 { return FALSE; }
     "null"                  { return NULL; }
+    "self"                  { return SELF; }
     "as"                    { return AS; }
 
     // Symbols
@@ -53,6 +57,8 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     "}"                     { return CLOSE_BRACE; }
     "["                     { return OPEN_BRACKET; }
     "]"                     { return CLOSE_BRACKET; }
+    "("                     { return OPEN_PARENTHESES; }
+    ")"                     { return CLOSE_PARENTHESES; }
     ":"                     { return COLON; }
     ":="                    { return COLON_EQUAL; }
     "::"                    { return DOUBLE_COLON; }

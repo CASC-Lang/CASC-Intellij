@@ -15,12 +15,15 @@ public interface CASCTypes {
   IElementType CLASS_FIELDS = new CASCElementType("CLASS_FIELDS");
   IElementType COMPANION_BLOCK = new CASCElementType("COMPANION_BLOCK");
   IElementType COMPLEX_TYPE = new CASCElementType("COMPLEX_TYPE");
+  IElementType CONSTRUCTOR_DECLARATION = new CASCElementType("CONSTRUCTOR_DECLARATION");
   IElementType EXPRESSION = new CASCElementType("EXPRESSION");
   IElementType FIELD = new CASCElementType("FIELD");
+  IElementType FUNCTION_DECLARATION = new CASCElementType("FUNCTION_DECLARATION");
   IElementType IMPLEMENTATION = new CASCElementType("IMPLEMENTATION");
   IElementType LITERAL_VALUE = new CASCElementType("LITERAL_VALUE");
   IElementType MUTABLE_MODIFIER = new CASCElementType("MUTABLE_MODIFIER");
   IElementType PACKAGE_DECLARATION = new CASCElementType("PACKAGE_DECLARATION");
+  IElementType PARAMETER_LIST = new CASCElementType("PARAMETER_LIST");
   IElementType STATEMENT = new CASCElementType("STATEMENT");
   IElementType TYPE = new CASCElementType("TYPE");
   IElementType USAGE = new CASCElementType("USAGE");
@@ -31,6 +34,7 @@ public interface CASCTypes {
   IElementType CLASS = new CASCTokenType("CLASS");
   IElementType CLOSE_BRACE = new CASCTokenType("CLOSE_BRACE");
   IElementType CLOSE_BRACKET = new CASCTokenType("CLOSE_BRACKET");
+  IElementType CLOSE_PARENTHESES = new CASCTokenType("CLOSE_PARENTHESES");
   IElementType COLON = new CASCTokenType("COLON");
   IElementType COLON_EQUAL = new CASCTokenType("COLON_EQUAL");
   IElementType COMMA = new CASCTokenType("COMMA");
@@ -39,19 +43,24 @@ public interface CASCTypes {
   IElementType DOUBLE_COLON = new CASCTokenType("DOUBLE_COLON");
   IElementType FALSE = new CASCTokenType("FALSE");
   IElementType FLOAT_LITERAL = new CASCTokenType("FLOAT_LITERAL");
+  IElementType FN = new CASCTokenType("FN");
   IElementType IDENTIFIER = new CASCTokenType("IDENTIFIER");
   IElementType IMPL = new CASCTokenType("IMPL");
   IElementType INTEGER_LITERAL = new CASCTokenType("INTEGER_LITERAL");
   IElementType INTL = new CASCTokenType("INTL");
   IElementType MUT = new CASCTokenType("MUT");
+  IElementType NEW = new CASCTokenType("NEW");
   IElementType NULL = new CASCTokenType("NULL");
   IElementType OPEN_BRACE = new CASCTokenType("OPEN_BRACE");
   IElementType OPEN_BRACKET = new CASCTokenType("OPEN_BRACKET");
+  IElementType OPEN_PARENTHESES = new CASCTokenType("OPEN_PARENTHESES");
   IElementType PACKAGE = new CASCTokenType("PACKAGE");
   IElementType PRIV = new CASCTokenType("PRIV");
   IElementType PROT = new CASCTokenType("PROT");
   IElementType PUB = new CASCTokenType("PUB");
+  IElementType SELF = new CASCTokenType("SELF");
   IElementType STRING_LITERAL = new CASCTokenType("STRING_LITERAL");
+  IElementType SUPER = new CASCTokenType("SUPER");
   IElementType TRUE = new CASCTokenType("TRUE");
   IElementType USE = new CASCTokenType("USE");
 
@@ -79,11 +88,17 @@ public interface CASCTypes {
       else if (type == COMPLEX_TYPE) {
         return new CASCComplexTypeImpl(node);
       }
+      else if (type == CONSTRUCTOR_DECLARATION) {
+        return new CASCConstructorDeclarationImpl(node);
+      }
       else if (type == EXPRESSION) {
         return new CASCExpressionImpl(node);
       }
       else if (type == FIELD) {
         return new CASCFieldImpl(node);
+      }
+      else if (type == FUNCTION_DECLARATION) {
+        return new CASCFunctionDeclarationImpl(node);
       }
       else if (type == IMPLEMENTATION) {
         return new CASCImplementationImpl(node);
@@ -96,6 +111,9 @@ public interface CASCTypes {
       }
       else if (type == PACKAGE_DECLARATION) {
         return new CASCPackageDeclarationImpl(node);
+      }
+      else if (type == PARAMETER_LIST) {
+        return new CASCParameterListImpl(node);
       }
       else if (type == STATEMENT) {
         return new CASCStatementImpl(node);

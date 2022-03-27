@@ -17,37 +17,45 @@
   ]
 }
 
-cascFile            ::= packageDeclaration? usage* classDeclaration? implementation*
+cascFile                ::= packageDeclaration? usage* classDeclaration? implementation*
 
-accessModifiers     ::= PUB | PROT | INTL | PRIV
+accessModifiers         ::= PUB | PROT | INTL | PRIV
 
-mutableModifier     ::= MUT
+mutableModifier         ::= MUT
 
-type                ::= (IDENTIFIER (DOUBLE_COLON IDENTIFIER)*)
-complexType         ::= type (OPEN_BRACKET CLOSE_BRACKET)*
+type                    ::= (IDENTIFIER (DOUBLE_COLON IDENTIFIER)*)
+complexType             ::= type (OPEN_BRACKET CLOSE_BRACKET)*
 
-packageDeclaration  ::= PACKAGE type
+packageDeclaration      ::= PACKAGE type
 
-usage               ::= USE type (AS IDENTIFIER) | (DOUBLE_COLON OPEN_BRACE usage (COMMA usage)+ CLOSE_BRACE)
+usage                   ::= USE type (AS IDENTIFIER) | (DOUBLE_COLON OPEN_BRACE usage (COMMA usage)+ CLOSE_BRACE)
 
-classDeclaration    ::= accessModifiers? mutableModifier? CLASS IDENTIFIER (OPEN_BRACE classFields* CLOSE_BRACE)?
+classDeclaration        ::= accessModifiers? mutableModifier? CLASS IDENTIFIER (OPEN_BRACE classFields* CLOSE_BRACE)?
 
-classFields         ::= (COMP OPEN_BRACE classFields CLOSE_BRACE) | (accessModifiers? mutableModifier? COLON field+)
+classFields             ::= (COMP OPEN_BRACE classFields CLOSE_BRACE) | (accessModifiers? mutableModifier? COLON field+)
 
-field               ::= IDENTIFIER COLON complexType
+field                   ::= IDENTIFIER COLON complexType
 
-implementation      ::= IMPL IDENTIFIER (COLON type)? (OPEN_BRACE companionBlock? CLOSE_BRACE)?
+implementation          ::= IMPL IDENTIFIER (COLON type)? (OPEN_BRACE companionBlock? (functionDeclaration | constructorDeclaration)* CLOSE_BRACE)?
 
-companionBlock      ::= COMP OPEN_BRACE statement* CLOSE_BRACE
+companionBlock          ::= COMP OPEN_BRACE statement* CLOSE_BRACE
 
-statement           ::= variableDeclaration | expression
+functionDeclaration     ::= FN IDENTIFIER OPEN_PARENTHESES (SELF COMMA)? parameterList CLOSE_PARENTHESES (COLON complexType)? OPEN_BRACE statement* CLOSE_BRACE
 
-variableDeclaration ::= IDENTIFIER COLON_EQUAL expression
+constructorDeclaration  ::= NEW OPEN_PARENTHESES parameterList CLOSE_PARENTHESES (COLON (SELF | SUPER) OPEN_PARENTHESES parameterList CLOSE_PARENTHESES)? OPEN_BRACE statement* CLOSE_BRACE
 
-expression          ::= literalValue | arrayInitialization | arrayDeclaration
+parameterList           ::= IDENTIFIER COLON complexType (COMMA IDENTIFIER COLON complexType)*
 
-literalValue        ::= NULL | TRUE | FALSE | STRING_LITERAL | CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL
+statement               ::= variableDeclaration | expression
 
-arrayInitialization ::= ((type COLON (OPEN_BRACKET CLOSE_BRACKET)+) | COLON) OPEN_BRACE (expression (COMMA expression)*)? CLOSE_BRACE
+variableDeclaration     ::= IDENTIFIER COLON_EQUAL expression
 
-arrayDeclaration    ::= type COLON (OPEN_BRACKET expression CLOSE_BRACKET)+ OPEN_BRACE CLOSE_BRACE
+expression              ::= literalValue
+                        | arrayInitialization
+                        | arrayDeclaration
+
+literalValue            ::= NULL | TRUE | FALSE | STRING_LITERAL | CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL
+
+arrayInitialization     ::= ((type COLON (OPEN_BRACKET CLOSE_BRACKET)+) | COLON) OPEN_BRACE (expression (COMMA expression)*)? CLOSE_BRACE
+
+arrayDeclaration        ::= type COLON (OPEN_BRACKET expression CLOSE_BRACKET)+ OPEN_BRACE CLOSE_BRACE
