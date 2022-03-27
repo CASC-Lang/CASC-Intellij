@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCField extends PsiElement {
+public interface CASCUsage extends PsiElement {
+
+  @Nullable
+  CASCType getType();
 
   @NotNull
-  CASCComplexType getComplexType();
+  List<CASCUsage> getUsageList();
 
 }

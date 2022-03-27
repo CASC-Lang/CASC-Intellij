@@ -11,6 +11,14 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitArrayDeclaration(@NotNull CASCArrayDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArrayInitialization(@NotNull CASCArrayInitialization o) {
+    visitPsiElement(o);
+  }
+
   public void visitClassDeclaration(@NotNull CASCClassDeclaration o) {
     visitPsiElement(o);
   }
@@ -19,7 +27,15 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCompanionBlock(@NotNull CASCCompanionBlock o) {
+    visitPsiElement(o);
+  }
+
   public void visitComplexType(@NotNull CASCComplexType o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExpression(@NotNull CASCExpression o) {
     visitPsiElement(o);
   }
 
@@ -31,7 +47,31 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLiteralValue(@NotNull CASCLiteralValue o) {
+    visitPsiElement(o);
+  }
+
   public void visitMutableModifier(@NotNull CASCMutableModifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPackageDeclaration(@NotNull CASCPackageDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStatement(@NotNull CASCStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitType(@NotNull CASCType o) {
+    visitPsiElement(o);
+  }
+
+  public void visitUsage(@NotNull CASCUsage o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVariableDeclaration(@NotNull CASCVariableDeclaration o) {
     visitPsiElement(o);
   }
 

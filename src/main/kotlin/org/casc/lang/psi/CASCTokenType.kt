@@ -7,5 +7,5 @@ import org.jetbrains.annotations.NotNull
 
 class CASCTokenType(@NotNull @NonNls debugName: String): IElementType(debugName, CASCLanguage) {
     override fun toString(): String =
-        "CASCTokenType${super.toString()}"
+        "CASCTokenType::${super.toString()}"
 }

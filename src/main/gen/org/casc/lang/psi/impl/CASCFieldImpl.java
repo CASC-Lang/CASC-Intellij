@@ -33,10 +33,4 @@ public class CASCFieldImpl extends ASTWrapperPsiElement implements CASCField {
     return findNotNullChildByClass(CASCComplexType.class);
   }
 
-  @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
-  }
-
 }

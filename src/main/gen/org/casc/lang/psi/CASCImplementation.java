@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface CASCImplementation extends PsiElement {
 
-  @NotNull
-  PsiElement getIdentifier();
+  @Nullable
+  CASCCompanionBlock getCompanionBlock();
+
+  @Nullable
+  CASCType getType();
 
 }

@@ -10,7 +10,7 @@ import javax.swing.Icon
 class CASCColorSettingsPage: ColorSettingsPage {
     companion object {
         private val DESCRIPTORS = arrayOf(
-            AttributesDescriptor("Identifier", CASCSyntaxHighlighter.IDENTIFIER),
+            AttributesDescriptor("Type", CASCSyntaxHighlighter.TYPE),
             AttributesDescriptor("Comment", CASCSyntaxHighlighter.COMMENT),
             AttributesDescriptor("Bad character", CASCSyntaxHighlighter.BAD_CHARACTER)
         )

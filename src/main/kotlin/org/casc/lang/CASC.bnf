@@ -13,24 +13,41 @@
   tokenTypeClass="org.casc.lang.psi.CASCTokenType"
 
   tokens = [
-    COMMENT     = 'regexp:\/\/\w+'
-    IDENTIFIER  = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
-    WHITE_SPACE = 'regexp:\s+'
+    COMMENT = 'regexp://.*'
   ]
 }
 
-cascFile ::= (classDeclaration )? implementation*
+cascFile            ::= packageDeclaration? usage* classDeclaration? implementation*
 
-accessModifiers ::= PUB | PROT | INTL | PRIV
+accessModifiers     ::= PUB | PROT | INTL | PRIV
 
-mutableModifier ::= MUT
+mutableModifier     ::= MUT
 
-complexType ::= IDENTIFIER (OPEN_BRACKET CLOSE_BRACKET)*
+type                ::= (IDENTIFIER (DOUBLE_COLON IDENTIFIER)*)
+complexType         ::= type (OPEN_BRACKET CLOSE_BRACKET)*
 
-classDeclaration ::= accessModifiers? mutableModifier? CLASS IDENTIFIER (OPEN_BRACE classFields+ CLOSE_BRACE)?
+packageDeclaration  ::= PACKAGE type
 
-classFields ::= (COMP OPEN_BRACE classFields CLOSE_BRACE) | (accessModifiers? mutableModifier? COLON field+)
+usage               ::= USE type (AS IDENTIFIER) | (DOUBLE_COLON OPEN_BRACE usage (COMMA usage)+ CLOSE_BRACE)
 
-field ::= IDENTIFIER COLON complexType
+classDeclaration    ::= accessModifiers? mutableModifier? CLASS IDENTIFIER (OPEN_BRACE classFields* CLOSE_BRACE)?
 
-implementation ::= IMPL IDENTIFIER (OPEN_BRACE CLOSE_BRACE)?
+classFields         ::= (COMP OPEN_BRACE classFields CLOSE_BRACE) | (accessModifiers? mutableModifier? COLON field+)
+
+field               ::= IDENTIFIER COLON complexType
+
+implementation      ::= IMPL IDENTIFIER (COLON type)? (OPEN_BRACE companionBlock? CLOSE_BRACE)?
+
+companionBlock      ::= COMP OPEN_BRACE statement* CLOSE_BRACE
+
+statement           ::= variableDeclaration | expression
+
+variableDeclaration ::= IDENTIFIER COLON_EQUAL expression
+
+expression          ::= literalValue | arrayInitialization | arrayDeclaration
+
+literalValue        ::= NULL | TRUE | FALSE | STRING_LITERAL | CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL
+
+arrayInitialization ::= ((type COLON (OPEN_BRACKET CLOSE_BRACKET)+) | COLON) OPEN_BRACE (expression (COMMA expression)*)? CLOSE_BRACE
+
+arrayDeclaration    ::= type COLON (OPEN_BRACKET expression CLOSE_BRACKET)+ OPEN_BRACE CLOSE_BRACE

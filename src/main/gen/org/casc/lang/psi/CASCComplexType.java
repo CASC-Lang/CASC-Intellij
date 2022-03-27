@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface CASCComplexType extends PsiElement {
 
   @NotNull
-  PsiElement getIdentifier();
+  CASCType getType();
 
 }

@@ -29,8 +29,8 @@ public class CASCComplexTypeImpl extends ASTWrapperPsiElement implements CASCCom
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public CASCType getType() {
+    return findNotNullChildByClass(CASCType.class);
   }
 
 }

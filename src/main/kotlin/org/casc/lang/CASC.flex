@@ -20,12 +20,21 @@ InputCharacter      = [^\r\n]
 Comment             = {EndOfLineComment}
 EndOfLineComment    = "//" {InputCharacter}* {LineTerminator}?
 
+COMMENT             = "//" {InputCharacter}* {LineTerminator}?
 IDENTIFIER          = [a-zA-Z_][a-zA-Z0-9_]*
+DIGIT               = [0-9]*
 WHITE_SPACE         = [ \t\n\x0B\f\r]+
+
+STRING_LITERAL      = \"([^\\\"]|\\t|\\b|\\n|\\r|\\f|\\\'|\\\"|\\\\|\\u[0-9A-Fa-f]{4})*\"
+CHAR_LITERAL        = \'([^\\\']|\\t|\\b|\\n|\\r|\\f|\\\'|\\\"|\\\\|\\u[0-9A-Fa-f]{4})\'
+INTEGER_LITERAL     = {DIGIT}("B" | "S" | "I" | "L")?
+FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
 
 %%
 <YYINITIAL> {
     // Keywords
+    "package"               { return PACKAGE; }
+    "use"                   { return USE; }
     "class"                 { return CLASS; }
     "comp"                  { return COMP; }
     "mut"                   { return MUT; }
@@ -34,6 +43,10 @@ WHITE_SPACE         = [ \t\n\x0B\f\r]+
     "intl"                  { return INTL; }
     "priv"                  { return PRIV; }
     "impl"                  { return IMPL; }
+    "true"                  { return TRUE; }
+    "false"                 { return FALSE; }
+    "null"                  { return NULL; }
+    "as"                    { return AS; }
 
     // Symbols
     "{"                     { return OPEN_BRACE; }
@@ -41,10 +54,18 @@ WHITE_SPACE         = [ \t\n\x0B\f\r]+
     "["                     { return OPEN_BRACKET; }
     "]"                     { return CLOSE_BRACKET; }
     ":"                     { return COLON; }
+    ":="                    { return COLON_EQUAL; }
+    "::"                    { return DOUBLE_COLON; }
+    ","                     { return COMMA; }
 
+    {LineTerminator}        { return TokenType.WHITE_SPACE; }
     {IDENTIFIER}            { return IDENTIFIER; }
     {WHITE_SPACE}           { return TokenType.WHITE_SPACE; }
-    {Comment}               { return COMMENT; }
+    {STRING_LITERAL}        { return STRING_LITERAL; }
+    {CHAR_LITERAL}          { return CHAR_LITERAL; }
+    {INTEGER_LITERAL}       { return INTEGER_LITERAL; }
+    {FLOAT_LITERAL}         { return FLOAT_LITERAL; }
+    {COMMENT}               { return COMMENT; }
 }
 
 [^] { return TokenType.BAD_CHARACTER; }

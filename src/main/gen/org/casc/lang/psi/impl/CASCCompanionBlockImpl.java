@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCImplementationImpl extends ASTWrapperPsiElement implements CASCImplementation {
+public class CASCCompanionBlockImpl extends ASTWrapperPsiElement implements CASCCompanionBlock {
 
-  public CASCImplementationImpl(@NotNull ASTNode node) {
+  public CASCCompanionBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitImplementation(this);
+    visitor.visitCompanionBlock(this);
   }
 
   @Override
@@ -28,15 +28,9 @@ public class CASCImplementationImpl extends ASTWrapperPsiElement implements CASC
   }
 
   @Override
-  @Nullable
-  public CASCCompanionBlock getCompanionBlock() {
-    return findChildByClass(CASCCompanionBlock.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCType getType() {
-    return findChildByClass(CASCType.class);
+  @NotNull
+  public List<CASCStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCStatement.class);
   }
 
 }

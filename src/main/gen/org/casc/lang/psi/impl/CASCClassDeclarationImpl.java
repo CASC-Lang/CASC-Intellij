@@ -45,10 +45,4 @@ public class CASCClassDeclarationImpl extends ASTWrapperPsiElement implements CA
     return findChildByClass(CASCMutableModifier.class);
   }
 
-  @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
-  }
-
 }

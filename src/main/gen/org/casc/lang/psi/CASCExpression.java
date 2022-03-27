@@ -5,15 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCClassDeclaration extends PsiElement {
+public interface CASCExpression extends PsiElement {
 
   @Nullable
-  CASCAccessModifiers getAccessModifiers();
-
-  @NotNull
-  List<CASCClassFields> getClassFieldsList();
+  CASCArrayDeclaration getArrayDeclaration();
 
   @Nullable
-  CASCMutableModifier getMutableModifier();
+  CASCArrayInitialization getArrayInitialization();
+
+  @Nullable
+  CASCLiteralValue getLiteralValue();
 
 }
