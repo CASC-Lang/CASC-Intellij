@@ -51,6 +51,10 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     "null"                  { return NULL; }
     "self"                  { return SELF; }
     "as"                    { return AS; }
+    "ovrd"                  { return OVRD; }
+    "if"                    { return IF; }
+    "else"                  { return ELSE; }
+    "return"                { return RETURN; }
 
     // Symbols
     "{"                     { return OPEN_BRACE; }
@@ -60,10 +64,33 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     "("                     { return OPEN_PARENTHESES; }
     ")"                     { return CLOSE_PARENTHESES; }
     ":"                     { return COLON; }
+    ";"                     { return SEMICOLON; }
     ":="                    { return COLON_EQUAL; }
     "::"                    { return DOUBLE_COLON; }
     ","                     { return COMMA; }
     "."                     { return DOT; }
+    "+"                     { return PLUS; }
+    "++"                    { return DOUBLE_PLUS; }
+    "-"                     { return MINUS; }
+    "--"                    { return DOUBLE_MINUS; }
+    "~"                     { return TILDE; }
+    "!"                     { return BANG; }
+    "="                     { return EQUAL; }
+    "!="                    { return BANG_EQUAL; }
+    "*"                     { return STAR; }
+    "/"                     { return SLASH; }
+    ">"                     { return GREATER; }
+    ">>"                    { return DOUBLE_GREATER; }
+    ">="                    { return GREATER_EQUAL; }
+    ">>>"                   { return TRIPLE_GREATER; }
+    "<"                     { return LESSER; }
+    "<<"                    { return DOUBLE_LESSER; }
+    "<="                    { return LESSER_EQUAL; }
+    "&"                     { return AMPERSAND; }
+    "&&"                    { return DOUBLE_AMPERSAND; }
+    "^"                     { return HAT; }
+    "|"                     { return PIPE; }
+    "||"                    { return DOUBLE_PIPE; }
 
     "\""                    { yybegin(STRING); return DOUBLE_QUOTE; }
     "\'"                    { yybegin(STRING); return QUOTE; }

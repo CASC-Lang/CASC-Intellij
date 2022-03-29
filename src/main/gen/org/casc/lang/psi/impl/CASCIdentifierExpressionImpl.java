@@ -11,32 +11,20 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCComplexTypeImpl extends ASTWrapperPsiElement implements CASCComplexType {
+public class CASCIdentifierExpressionImpl extends ASTWrapperPsiElement implements CASCIdentifierExpression {
 
-  public CASCComplexTypeImpl(@NotNull ASTNode node) {
+  public CASCIdentifierExpressionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitComplexType(this);
+    visitor.visitIdentifierExpression(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof CASCVisitor) accept((CASCVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public CASCComplexType getComplexType() {
-    return findChildByClass(CASCComplexType.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCType getType() {
-    return findChildByClass(CASCType.class);
   }
 
 }

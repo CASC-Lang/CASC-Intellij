@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCConstructorCall extends PsiElement {
+public interface CASCEqualityExpression extends PsiElement {
 
   @NotNull
-  CASCArgumentList getArgumentList();
-
-  @NotNull
-  CASCType getType();
+  List<CASCComparisonExpression> getComparisonExpressionList();
 
 }

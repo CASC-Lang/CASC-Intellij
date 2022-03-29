@@ -5,15 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCConstructorDeclaration extends PsiElement {
+public interface CASCArraySizeDeclaration extends PsiElement {
 
   @Nullable
-  CASCArgumentList getArgumentList();
+  CASCArraySizeDeclaration getArraySizeDeclaration();
 
   @Nullable
-  CASCParameterList getParameterList();
+  CASCExpression getExpression();
 
-  @NotNull
-  List<CASCStatement> getStatementList();
+  @Nullable
+  CASCType getType();
 
 }

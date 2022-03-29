@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCConstructorCallImpl extends ASTWrapperPsiElement implements CASCConstructorCall {
+public class CASCANDExpressionImpl extends ASTWrapperPsiElement implements CASCANDExpression {
 
-  public CASCConstructorCallImpl(@NotNull ASTNode node) {
+  public CASCANDExpressionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitConstructorCall(this);
+    visitor.visitANDExpression(this);
   }
 
   @Override
@@ -29,14 +29,8 @@ public class CASCConstructorCallImpl extends ASTWrapperPsiElement implements CAS
 
   @Override
   @NotNull
-  public CASCArgumentList getArgumentList() {
-    return findNotNullChildByClass(CASCArgumentList.class);
-  }
-
-  @Override
-  @NotNull
-  public CASCType getType() {
-    return findNotNullChildByClass(CASCType.class);
+  public List<CASCShiftingExpression> getShiftingExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCShiftingExpression.class);
   }
 
 }

@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCMemberExpressionImpl extends ASTWrapperPsiElement implements CASCMemberExpression {
+public class CASCArraySizeDeclarationImpl extends ASTWrapperPsiElement implements CASCArraySizeDeclaration {
 
-  public CASCMemberExpressionImpl(@NotNull ASTNode node) {
+  public CASCArraySizeDeclarationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitMemberExpression(this);
+    visitor.visitArraySizeDeclaration(this);
   }
 
   @Override
@@ -29,14 +29,20 @@ public class CASCMemberExpressionImpl extends ASTWrapperPsiElement implements CA
 
   @Override
   @Nullable
-  public CASCFunctionCall getFunctionCall() {
-    return findChildByClass(CASCFunctionCall.class);
+  public CASCArraySizeDeclaration getArraySizeDeclaration() {
+    return findChildByClass(CASCArraySizeDeclaration.class);
   }
 
   @Override
   @Nullable
-  public CASCMemberExpression getMemberExpression() {
-    return findChildByClass(CASCMemberExpression.class);
+  public CASCExpression getExpression() {
+    return findChildByClass(CASCExpression.class);
+  }
+
+  @Override
+  @Nullable
+  public CASCType getType() {
+    return findChildByClass(CASCType.class);
   }
 
 }

@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCMemberExpression extends PsiElement {
+public interface CASCAssignSuffix extends PsiElement {
 
-  @Nullable
-  CASCFunctionCall getFunctionCall();
-
-  @Nullable
-  CASCMemberExpression getMemberExpression();
+  @NotNull
+  CASCExpression getExpression();
 
 }

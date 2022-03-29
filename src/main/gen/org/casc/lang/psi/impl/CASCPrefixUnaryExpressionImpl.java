@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCFunctionCallImpl extends ASTWrapperPsiElement implements CASCFunctionCall {
+public class CASCPrefixUnaryExpressionImpl extends ASTWrapperPsiElement implements CASCPrefixUnaryExpression {
 
-  public CASCFunctionCallImpl(@NotNull ASTNode node) {
+  public CASCPrefixUnaryExpressionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitFunctionCall(this);
+    visitor.visitPrefixUnaryExpression(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class CASCFunctionCallImpl extends ASTWrapperPsiElement implements CASCFu
 
   @Override
   @NotNull
-  public CASCArgumentList getArgumentList() {
-    return findNotNullChildByClass(CASCArgumentList.class);
+  public CASCPostfixUnaryExpression getPostfixUnaryExpression() {
+    return findNotNullChildByClass(CASCPostfixUnaryExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public List<CASCUnaryOperators> getUnaryOperatorsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCUnaryOperators.class);
   }
 
 }

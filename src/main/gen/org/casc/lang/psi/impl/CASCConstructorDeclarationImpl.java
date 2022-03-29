@@ -28,9 +28,15 @@ public class CASCConstructorDeclarationImpl extends ASTWrapperPsiElement impleme
   }
 
   @Override
-  @NotNull
-  public List<CASCParameterList> getParameterListList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCParameterList.class);
+  @Nullable
+  public CASCArgumentList getArgumentList() {
+    return findChildByClass(CASCArgumentList.class);
+  }
+
+  @Override
+  @Nullable
+  public CASCParameterList getParameterList() {
+    return findChildByClass(CASCParameterList.class);
   }
 
   @Override

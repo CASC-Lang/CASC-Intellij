@@ -8,7 +8,16 @@ import com.intellij.psi.PsiElement;
 public interface CASCStatement extends PsiElement {
 
   @Nullable
+  CASCBlockStatement getBlockStatement();
+
+  @Nullable
   CASCExpression getExpression();
+
+  @Nullable
+  CASCIfStatement getIfStatement();
+
+  @Nullable
+  CASCReturnStatement getReturnStatement();
 
   @Nullable
   CASCVariableDeclaration getVariableDeclaration();

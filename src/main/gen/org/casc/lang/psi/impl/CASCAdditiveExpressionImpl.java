@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCComplexTypeImpl extends ASTWrapperPsiElement implements CASCComplexType {
+public class CASCAdditiveExpressionImpl extends ASTWrapperPsiElement implements CASCAdditiveExpression {
 
-  public CASCComplexTypeImpl(@NotNull ASTNode node) {
+  public CASCAdditiveExpressionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitComplexType(this);
+    visitor.visitAdditiveExpression(this);
   }
 
   @Override
@@ -28,15 +28,9 @@ public class CASCComplexTypeImpl extends ASTWrapperPsiElement implements CASCCom
   }
 
   @Override
-  @Nullable
-  public CASCComplexType getComplexType() {
-    return findChildByClass(CASCComplexType.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCType getType() {
-    return findChildByClass(CASCType.class);
+  @NotNull
+  public List<CASCMultiplicativeExpression> getMultiplicativeExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCMultiplicativeExpression.class);
   }
 
 }

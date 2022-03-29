@@ -29,14 +29,26 @@ public class CASCFunctionDeclarationImpl extends ASTWrapperPsiElement implements
 
   @Override
   @Nullable
+  public CASCAccessModifiers getAccessModifiers() {
+    return findChildByClass(CASCAccessModifiers.class);
+  }
+
+  @Override
+  @Nullable
   public CASCComplexType getComplexType() {
     return findChildByClass(CASCComplexType.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
+  public CASCMutableModifier getMutableModifier() {
+    return findChildByClass(CASCMutableModifier.class);
+  }
+
+  @Override
+  @Nullable
   public CASCParameterList getParameterList() {
-    return findNotNullChildByClass(CASCParameterList.class);
+    return findChildByClass(CASCParameterList.class);
   }
 
   @Override

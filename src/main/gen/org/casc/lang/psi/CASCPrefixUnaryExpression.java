@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCExpression extends PsiElement {
+public interface CASCPrefixUnaryExpression extends PsiElement {
 
   @NotNull
-  CASCConjunctionExpression getConjunctionExpression();
+  CASCPostfixUnaryExpression getPostfixUnaryExpression();
+
+  @NotNull
+  List<CASCUnaryOperators> getUnaryOperatorsList();
 
 }

@@ -28,33 +28,9 @@ public class CASCExpressionImpl extends ASTWrapperPsiElement implements CASCExpr
   }
 
   @Override
-  @Nullable
-  public CASCArrayDeclaration getArrayDeclaration() {
-    return findChildByClass(CASCArrayDeclaration.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCArrayInitialization getArrayInitialization() {
-    return findChildByClass(CASCArrayInitialization.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCConstructorCall getConstructorCall() {
-    return findChildByClass(CASCConstructorCall.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCLiteralExpression getLiteralExpression() {
-    return findChildByClass(CASCLiteralExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCMemberExpression getMemberExpression() {
-    return findChildByClass(CASCMemberExpression.class);
+  @NotNull
+  public CASCConjunctionExpression getConjunctionExpression() {
+    return findNotNullChildByClass(CASCConjunctionExpression.class);
   }
 
 }

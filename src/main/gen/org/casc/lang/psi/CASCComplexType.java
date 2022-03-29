@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface CASCComplexType extends PsiElement {
 
-  @NotNull
+  @Nullable
+  CASCComplexType getComplexType();
+
+  @Nullable
   CASCType getType();
 
 }

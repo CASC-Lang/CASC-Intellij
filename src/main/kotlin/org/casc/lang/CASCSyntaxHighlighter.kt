@@ -49,7 +49,8 @@ class CASCSyntaxHighlighter : SyntaxHighlighterBase() {
         null -> EMPTY_KEYS
         CASCTypes.PUB, CASCTypes.PROT, CASCTypes.INTL, CASCTypes.PRIV, CASCTypes.MUT, CASCTypes.CLASS, CASCTypes.IMPL,
         CASCTypes.PACKAGE, CASCTypes.USE, CASCTypes.COMP, CASCTypes.FN, CASCTypes.NEW, CASCTypes.AS, CASCTypes.TRUE,
-        CASCTypes.FALSE, CASCTypes.NULL, CASCTypes.SELF -> KEYWORD_KEYS
+        CASCTypes.FALSE, CASCTypes.NULL, CASCTypes.SELF, CASCTypes.OVRD, CASCTypes.IF, CASCTypes.ELSE, CASCTypes.RETURN
+        -> KEYWORD_KEYS
         CASCTypes.TYPE -> TYPE_KEYS
         CASCTypes.INTEGER_LITERAL, CASCTypes.FLOAT_LITERAL -> NUMBER_KEYS
         CASCTypes.STRING_CHAR, CASCTypes.QUOTE, CASCTypes.DOUBLE_QUOTE -> STRING_KEYS

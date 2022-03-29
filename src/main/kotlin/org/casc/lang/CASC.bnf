@@ -24,7 +24,7 @@ accessModifiers         ::= PUB | PROT | INTL | PRIV
 mutableModifier         ::= MUT
 
 type                    ::= (IDENTIFIER (DOUBLE_COLON IDENTIFIER)*)
-complexType             ::= type (OPEN_BRACKET CLOSE_BRACKET)*
+complexType             ::= type | (OPEN_BRACKET (type | complexType) CLOSE_BRACKET)
 
 packageDeclaration      ::= PACKAGE type
 
@@ -40,27 +40,94 @@ implementation          ::= IMPL IDENTIFIER (COLON type)? (OPEN_BRACE companionB
 
 companionBlock          ::= COMP OPEN_BRACE statement* CLOSE_BRACE
 
-functionDeclaration     ::= FN IDENTIFIER OPEN_PARENTHESES (SELF COMMA)? parameterList CLOSE_PARENTHESES (COLON complexType)? OPEN_BRACE statement* CLOSE_BRACE
+functionDeclaration     ::= accessModifiers? mutableModifier? OVRD? FN IDENTIFIER OPEN_PARENTHESES ((SELF (COMMA parameterList)?) | parameterList?) CLOSE_PARENTHESES (COLON complexType)? OPEN_BRACE statement* CLOSE_BRACE
 
-constructorDeclaration  ::= NEW OPEN_PARENTHESES parameterList CLOSE_PARENTHESES (COLON (SELF | SUPER) OPEN_PARENTHESES parameterList CLOSE_PARENTHESES)? OPEN_BRACE statement* CLOSE_BRACE
+constructorDeclaration  ::= NEW OPEN_PARENTHESES parameterList? CLOSE_PARENTHESES (COLON (SELF | SUPER) OPEN_PARENTHESES argumentList CLOSE_PARENTHESES)? OPEN_BRACE statement* CLOSE_BRACE
 
 parameterList           ::= IDENTIFIER COLON complexType (COMMA IDENTIFIER COLON complexType)*
 
-statement               ::= variableDeclaration | expression
+statement               ::= variableDeclaration | ifStatement | blockStatement | returnStatement | expression
 
-variableDeclaration     ::= IDENTIFIER COLON_EQUAL expression
+variableDeclaration     ::= MUT? IDENTIFIER COLON_EQUAL expression
 
-expression              ::= literalExpression
-                        | arrayInitialization
-                        | arrayDeclaration
-                        | constructorCall
-                        | memberExpression
+ifStatement             ::= IF expression statement (ELSE statement)?
 
-memberExpression        ::= (functionCall | IDENTIFIER) (DOT memberExpression)?
+blockStatement          ::= OPEN_BRACE statement* CLOSE_BRACE
 
-constructorCall         ::= NEW type OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
+returnStatement         ::= RETURN expression?
 
-functionCall            ::= IDENTIFIER OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
+expression              ::= conjunctionExpression
+
+conjunctionExpression   ::= disjunctionExpression (DOUBLE_PIPE disjunctionExpression)*
+
+disjunctionExpression   ::= equalityExpression (DOUBLE_AMPERSAND equalityExpression)*
+
+equalityExpression      ::= comparisonExpression ((EQUAL_EQUAL | BANG_EQUAL) comparisonExpression)*
+
+comparisonExpression    ::= infixOperationExpression ((GREATER | GREATER_EQUAL | LESSER | LESSER_EQUAL) infixOperationExpression)*
+
+infixOperationExpression::= inclusiveORExpression (IS inclusiveORExpression)*
+
+inclusiveORExpression   ::= exclusiveORExpression (PIPE exclusiveORExpression)*
+
+exclusiveORExpression   ::= ANDExpression (HAT ANDExpression)*
+
+ANDExpression           ::= shiftingExpression (AMPERSAND shiftingExpression)*
+
+shiftingExpression      ::= additiveExpression ((DOUBLE_GREATER | DOUBLE_LESSER | TRIPLE_GREATER) additiveExpression)*
+
+additiveExpression      ::= multiplicativeExpression ((PLUS | MINUS) multiplicativeExpression)*
+
+multiplicativeExpression::= asExpression ((STAR | SLASH) asExpression)*
+
+asExpression            ::= prefixUnaryExpression (AS prefixUnaryExpression)*
+
+prefixUnaryExpression   ::= unaryOperators* postfixUnaryExpression
+
+postfixUnaryExpression  ::= primaryExpression postfixUnarySuffix*
+
+postfixUnarySuffix      ::= (DOUBLE_PLUS | DOUBLE_MINUS)
+                        | callSuffix
+                        | indexSuffix
+                        | memberSuffix
+                        | assignSuffix
+
+primaryExpression       ::= parenthesizedExpression
+                        | arrayExpression
+                        | literalExpression
+                        | identifierExpression
+                        | constructorCallExpression
+                        | selfExpression
+                        | superExpression
+
+parenthesizedExpression ::= OPEN_PARENTHESES expression CLOSE_PARENTHESES
+
+identifierExpression    ::= IDENTIFIER
+
+selfExpression          ::= SELF
+
+superExpression         ::= SUPER
+
+arrayExpression         ::= arraySizeDeclaration OPEN_BRACE argumentList CLOSE_BRACE
+
+arraySizeDeclaration    ::= OPEN_BRACKET (type | arraySizeDeclaration)? SEMICOLON expression? CLOSE_BRACKET
+
+unaryOperators          ::= PLUS
+                        | DOUBLE_PLUS
+                        | MINUS
+                        | DOUBLE_MINUS
+                        | TILDE
+                        | BANG
+
+callSuffix              ::= OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
+
+indexSuffix             ::= OPEN_BRACKET expression CLOSE_BRACKET
+
+memberSuffix            ::= DOT | DOUBLE_COLON
+
+assignSuffix            ::= EQUAL expression
+
+constructorCallExpression   ::= NEW type OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
 
 argumentList            ::= (expression (COMMA expression)*)?
 
@@ -71,7 +138,3 @@ literalExpression       ::= NULL
                         | (QUOTE (STRING_CHAR | ESCAPED_STRING_CHAR)* QUOTE)
                         | INTEGER_LITERAL
                         | FLOAT_LITERAL
-
-arrayInitialization     ::= ((type COLON (OPEN_BRACKET CLOSE_BRACKET)+) | COLON) OPEN_BRACE argumentList CLOSE_BRACE
-
-arrayDeclaration        ::= type COLON (OPEN_BRACKET expression CLOSE_BRACKET)+ OPEN_BRACE CLOSE_BRACE

@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCStatementImpl extends ASTWrapperPsiElement implements CASCStatement {
+public class CASCReturnStatementImpl extends ASTWrapperPsiElement implements CASCReturnStatement {
 
-  public CASCStatementImpl(@NotNull ASTNode node) {
+  public CASCReturnStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitStatement(this);
+    visitor.visitReturnStatement(this);
   }
 
   @Override
@@ -29,32 +29,8 @@ public class CASCStatementImpl extends ASTWrapperPsiElement implements CASCState
 
   @Override
   @Nullable
-  public CASCBlockStatement getBlockStatement() {
-    return findChildByClass(CASCBlockStatement.class);
-  }
-
-  @Override
-  @Nullable
   public CASCExpression getExpression() {
     return findChildByClass(CASCExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCIfStatement getIfStatement() {
-    return findChildByClass(CASCIfStatement.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCReturnStatement getReturnStatement() {
-    return findChildByClass(CASCReturnStatement.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCVariableDeclaration getVariableDeclaration() {
-    return findChildByClass(CASCVariableDeclaration.class);
   }
 
 }

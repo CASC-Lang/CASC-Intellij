@@ -8,9 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface CASCFunctionDeclaration extends PsiElement {
 
   @Nullable
+  CASCAccessModifiers getAccessModifiers();
+
+  @Nullable
   CASCComplexType getComplexType();
 
-  @NotNull
+  @Nullable
+  CASCMutableModifier getMutableModifier();
+
+  @Nullable
   CASCParameterList getParameterList();
 
   @NotNull

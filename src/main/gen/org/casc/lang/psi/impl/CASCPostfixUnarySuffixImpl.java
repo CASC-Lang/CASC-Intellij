@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCStatementImpl extends ASTWrapperPsiElement implements CASCStatement {
+public class CASCPostfixUnarySuffixImpl extends ASTWrapperPsiElement implements CASCPostfixUnarySuffix {
 
-  public CASCStatementImpl(@NotNull ASTNode node) {
+  public CASCPostfixUnarySuffixImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitStatement(this);
+    visitor.visitPostfixUnarySuffix(this);
   }
 
   @Override
@@ -29,32 +29,26 @@ public class CASCStatementImpl extends ASTWrapperPsiElement implements CASCState
 
   @Override
   @Nullable
-  public CASCBlockStatement getBlockStatement() {
-    return findChildByClass(CASCBlockStatement.class);
+  public CASCAssignSuffix getAssignSuffix() {
+    return findChildByClass(CASCAssignSuffix.class);
   }
 
   @Override
   @Nullable
-  public CASCExpression getExpression() {
-    return findChildByClass(CASCExpression.class);
+  public CASCCallSuffix getCallSuffix() {
+    return findChildByClass(CASCCallSuffix.class);
   }
 
   @Override
   @Nullable
-  public CASCIfStatement getIfStatement() {
-    return findChildByClass(CASCIfStatement.class);
+  public CASCIndexSuffix getIndexSuffix() {
+    return findChildByClass(CASCIndexSuffix.class);
   }
 
   @Override
   @Nullable
-  public CASCReturnStatement getReturnStatement() {
-    return findChildByClass(CASCReturnStatement.class);
-  }
-
-  @Override
-  @Nullable
-  public CASCVariableDeclaration getVariableDeclaration() {
-    return findChildByClass(CASCVariableDeclaration.class);
+  public CASCMemberSuffix getMemberSuffix() {
+    return findChildByClass(CASCMemberSuffix.class);
   }
 
 }
