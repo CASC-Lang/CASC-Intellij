@@ -99,6 +99,7 @@ primaryExpression       ::= parenthesizedExpression
                         | constructorCallExpression
                         | selfExpression
                         | superExpression
+                        | ifExpression
 
 parenthesizedExpression ::= OPEN_PARENTHESES expression CLOSE_PARENTHESES
 
@@ -107,6 +108,8 @@ identifierExpression    ::= IDENTIFIER
 selfExpression          ::= SELF
 
 superExpression         ::= SUPER
+
+ifExpression            ::= IF expression statement (ELSE statement)?
 
 arrayExpression         ::= arraySizeDeclaration OPEN_BRACE argumentList CLOSE_BRACE
 

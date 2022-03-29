@@ -107,6 +107,10 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitIfExpression(@NotNull CASCIfExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitIfStatement(@NotNull CASCIfStatement o) {
     visitPsiElement(o);
   }

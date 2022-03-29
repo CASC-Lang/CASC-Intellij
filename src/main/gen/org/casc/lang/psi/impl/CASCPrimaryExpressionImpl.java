@@ -47,6 +47,12 @@ public class CASCPrimaryExpressionImpl extends ASTWrapperPsiElement implements C
 
   @Override
   @Nullable
+  public CASCIfExpression getIfExpression() {
+    return findChildByClass(CASCIfExpression.class);
+  }
+
+  @Override
+  @Nullable
   public CASCLiteralExpression getLiteralExpression() {
     return findChildByClass(CASCLiteralExpression.class);
   }

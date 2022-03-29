@@ -969,6 +969,39 @@ public class CASCParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // IF expression statement (ELSE statement)?
+  public static boolean ifExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ifExpression")) return false;
+    if (!nextTokenIs(b, IF)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IF);
+    r = r && expression(b, l + 1);
+    r = r && statement(b, l + 1);
+    r = r && ifExpression_3(b, l + 1);
+    exit_section_(b, m, IF_EXPRESSION, r);
+    return r;
+  }
+
+  // (ELSE statement)?
+  private static boolean ifExpression_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ifExpression_3")) return false;
+    ifExpression_3_0(b, l + 1);
+    return true;
+  }
+
+  // ELSE statement
+  private static boolean ifExpression_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ifExpression_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ELSE);
+    r = r && statement(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // IF expression statement (ELSE statement)?
   public static boolean ifStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ifStatement")) return false;
     if (!nextTokenIs(b, IF)) return false;
@@ -1461,6 +1494,7 @@ public class CASCParser implements PsiParser, LightPsiParser {
   //                         | constructorCallExpression
   //                         | selfExpression
   //                         | superExpression
+  //                         | ifExpression
   public static boolean primaryExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primaryExpression")) return false;
     boolean r;
@@ -1472,6 +1506,7 @@ public class CASCParser implements PsiParser, LightPsiParser {
     if (!r) r = constructorCallExpression(b, l + 1);
     if (!r) r = selfExpression(b, l + 1);
     if (!r) r = superExpression(b, l + 1);
+    if (!r) r = ifExpression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

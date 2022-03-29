@@ -17,6 +17,9 @@ public interface CASCPrimaryExpression extends PsiElement {
   CASCIdentifierExpression getIdentifierExpression();
 
   @Nullable
+  CASCIfExpression getIfExpression();
+
+  @Nullable
   CASCLiteralExpression getLiteralExpression();
 
   @Nullable

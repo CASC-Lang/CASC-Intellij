@@ -33,6 +33,7 @@ public interface CASCTypes {
   IElementType FIELD = new CASCElementType("FIELD");
   IElementType FUNCTION_DECLARATION = new CASCElementType("FUNCTION_DECLARATION");
   IElementType IDENTIFIER_EXPRESSION = new CASCElementType("IDENTIFIER_EXPRESSION");
+  IElementType IF_EXPRESSION = new CASCElementType("IF_EXPRESSION");
   IElementType IF_STATEMENT = new CASCElementType("IF_STATEMENT");
   IElementType IMPLEMENTATION = new CASCElementType("IMPLEMENTATION");
   IElementType INCLUSIVE_OR_EXPRESSION = new CASCElementType("INCLUSIVE_OR_EXPRESSION");
@@ -203,6 +204,9 @@ public interface CASCTypes {
       }
       else if (type == IDENTIFIER_EXPRESSION) {
         return new CASCIdentifierExpressionImpl(node);
+      }
+      else if (type == IF_EXPRESSION) {
+        return new CASCIfExpressionImpl(node);
       }
       else if (type == IF_STATEMENT) {
         return new CASCIfStatementImpl(node);
