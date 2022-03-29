@@ -258,15 +258,36 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // EQUAL expression
-  public static boolean assignSuffix(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "assignSuffix")) return false;
-    if (!nextTokenIs(b, EQUAL)) return false;
+  // conjunctionExpression (EQUAL conjunctionExpression)*
+  public static boolean assignmentExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignmentExpression")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ASSIGNMENT_EXPRESSION, "<assignment expression>");
+    r = conjunctionExpression(b, l + 1);
+    r = r && assignmentExpression_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (EQUAL conjunctionExpression)*
+  private static boolean assignmentExpression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignmentExpression_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!assignmentExpression_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "assignmentExpression_1", c)) break;
+    }
+    return true;
+  }
+
+  // EQUAL conjunctionExpression
+  private static boolean assignmentExpression_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignmentExpression_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, EQUAL);
-    r = r && expression(b, l + 1);
-    exit_section_(b, m, ASSIGN_SUFFIX, r);
+    r = r && conjunctionExpression(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -815,12 +836,12 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // conjunctionExpression
+  // assignmentExpression
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
-    r = conjunctionExpression(b, l + 1);
+    r = assignmentExpression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1195,6 +1216,45 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // FOR statement? SEMICOLON expression? SEMICOLON statement? statement
+  public static boolean jForStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "jForStatement")) return false;
+    if (!nextTokenIs(b, FOR)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, FOR);
+    r = r && jForStatement_1(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    r = r && jForStatement_3(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    r = r && jForStatement_5(b, l + 1);
+    r = r && statement(b, l + 1);
+    exit_section_(b, m, J_FOR_STATEMENT, r);
+    return r;
+  }
+
+  // statement?
+  private static boolean jForStatement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "jForStatement_1")) return false;
+    statement(b, l + 1);
+    return true;
+  }
+
+  // expression?
+  private static boolean jForStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "jForStatement_3")) return false;
+    expression(b, l + 1);
+    return true;
+  }
+
+  // statement?
+  private static boolean jForStatement_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "jForStatement_5")) return false;
+    statement(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
   // NULL
   //                         | TRUE
   //                         | FALSE
@@ -1295,7 +1355,7 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // asExpression ((STAR | SLASH) asExpression)*
+  // asExpression ((STAR | SLASH | PERCENTAGE) asExpression)*
   public static boolean multiplicativeExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "multiplicativeExpression")) return false;
     boolean r;
@@ -1306,7 +1366,7 @@ public class CASCParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ((STAR | SLASH) asExpression)*
+  // ((STAR | SLASH | PERCENTAGE) asExpression)*
   private static boolean multiplicativeExpression_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "multiplicativeExpression_1")) return false;
     while (true) {
@@ -1317,7 +1377,7 @@ public class CASCParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // (STAR | SLASH) asExpression
+  // (STAR | SLASH | PERCENTAGE) asExpression
   private static boolean multiplicativeExpression_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "multiplicativeExpression_1_0")) return false;
     boolean r;
@@ -1328,12 +1388,13 @@ public class CASCParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // STAR | SLASH
+  // STAR | SLASH | PERCENTAGE
   private static boolean multiplicativeExpression_1_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "multiplicativeExpression_1_0_0")) return false;
     boolean r;
     r = consumeToken(b, STAR);
     if (!r) r = consumeToken(b, SLASH);
+    if (!r) r = consumeToken(b, PERCENTAGE);
     return r;
   }
 
@@ -1440,7 +1501,6 @@ public class CASCParser implements PsiParser, LightPsiParser {
   //                         | callSuffix
   //                         | indexSuffix
   //                         | memberSuffix
-  //                         | assignSuffix
   public static boolean postfixUnarySuffix(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnarySuffix")) return false;
     boolean r;
@@ -1449,7 +1509,6 @@ public class CASCParser implements PsiParser, LightPsiParser {
     if (!r) r = callSuffix(b, l + 1);
     if (!r) r = indexSuffix(b, l + 1);
     if (!r) r = memberSuffix(b, l + 1);
-    if (!r) r = assignSuffix(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1588,7 +1647,7 @@ public class CASCParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // variableDeclaration | ifStatement | blockStatement | returnStatement | expression
+  // variableDeclaration | ifStatement | blockStatement | jForStatement | returnStatement | expression
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
@@ -1596,6 +1655,7 @@ public class CASCParser implements PsiParser, LightPsiParser {
     r = variableDeclaration(b, l + 1);
     if (!r) r = ifStatement(b, l + 1);
     if (!r) r = blockStatement(b, l + 1);
+    if (!r) r = jForStatement(b, l + 1);
     if (!r) r = returnStatement(b, l + 1);
     if (!r) r = expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);

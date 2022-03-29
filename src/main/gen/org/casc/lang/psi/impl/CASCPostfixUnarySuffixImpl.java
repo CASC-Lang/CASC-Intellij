@@ -29,12 +29,6 @@ public class CASCPostfixUnarySuffixImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
-  public CASCAssignSuffix getAssignSuffix() {
-    return findChildByClass(CASCAssignSuffix.class);
-  }
-
-  @Override
-  @Nullable
   public CASCCallSuffix getCallSuffix() {
     return findChildByClass(CASCCallSuffix.class);
   }

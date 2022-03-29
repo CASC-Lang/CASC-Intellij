@@ -14,7 +14,7 @@ public interface CASCTypes {
   IElementType ARGUMENT_LIST = new CASCElementType("ARGUMENT_LIST");
   IElementType ARRAY_EXPRESSION = new CASCElementType("ARRAY_EXPRESSION");
   IElementType ARRAY_SIZE_DECLARATION = new CASCElementType("ARRAY_SIZE_DECLARATION");
-  IElementType ASSIGN_SUFFIX = new CASCElementType("ASSIGN_SUFFIX");
+  IElementType ASSIGNMENT_EXPRESSION = new CASCElementType("ASSIGNMENT_EXPRESSION");
   IElementType AS_EXPRESSION = new CASCElementType("AS_EXPRESSION");
   IElementType BLOCK_STATEMENT = new CASCElementType("BLOCK_STATEMENT");
   IElementType CALL_SUFFIX = new CASCElementType("CALL_SUFFIX");
@@ -39,6 +39,7 @@ public interface CASCTypes {
   IElementType INCLUSIVE_OR_EXPRESSION = new CASCElementType("INCLUSIVE_OR_EXPRESSION");
   IElementType INDEX_SUFFIX = new CASCElementType("INDEX_SUFFIX");
   IElementType INFIX_OPERATION_EXPRESSION = new CASCElementType("INFIX_OPERATION_EXPRESSION");
+  IElementType J_FOR_STATEMENT = new CASCElementType("J_FOR_STATEMENT");
   IElementType LITERAL_EXPRESSION = new CASCElementType("LITERAL_EXPRESSION");
   IElementType MEMBER_SUFFIX = new CASCElementType("MEMBER_SUFFIX");
   IElementType MULTIPLICATIVE_EXPRESSION = new CASCElementType("MULTIPLICATIVE_EXPRESSION");
@@ -89,6 +90,7 @@ public interface CASCTypes {
   IElementType FALSE = new CASCTokenType("FALSE");
   IElementType FLOAT_LITERAL = new CASCTokenType("FLOAT_LITERAL");
   IElementType FN = new CASCTokenType("FN");
+  IElementType FOR = new CASCTokenType("FOR");
   IElementType GREATER = new CASCTokenType("GREATER");
   IElementType GREATER_EQUAL = new CASCTokenType("GREATER_EQUAL");
   IElementType HAT = new CASCTokenType("HAT");
@@ -109,6 +111,7 @@ public interface CASCTypes {
   IElementType OPEN_PARENTHESES = new CASCTokenType("OPEN_PARENTHESES");
   IElementType OVRD = new CASCTokenType("OVRD");
   IElementType PACKAGE = new CASCTokenType("PACKAGE");
+  IElementType PERCENTAGE = new CASCTokenType("PERCENTAGE");
   IElementType PIPE = new CASCTokenType("PIPE");
   IElementType PLUS = new CASCTokenType("PLUS");
   IElementType PRIV = new CASCTokenType("PRIV");
@@ -148,8 +151,8 @@ public interface CASCTypes {
       else if (type == ARRAY_SIZE_DECLARATION) {
         return new CASCArraySizeDeclarationImpl(node);
       }
-      else if (type == ASSIGN_SUFFIX) {
-        return new CASCAssignSuffixImpl(node);
+      else if (type == ASSIGNMENT_EXPRESSION) {
+        return new CASCAssignmentExpressionImpl(node);
       }
       else if (type == AS_EXPRESSION) {
         return new CASCAsExpressionImpl(node);
@@ -222,6 +225,9 @@ public interface CASCTypes {
       }
       else if (type == INFIX_OPERATION_EXPRESSION) {
         return new CASCInfixOperationExpressionImpl(node);
+      }
+      else if (type == J_FOR_STATEMENT) {
+        return new CASCJForStatementImpl(node);
       }
       else if (type == LITERAL_EXPRESSION) {
         return new CASCLiteralExpressionImpl(node);

@@ -52,6 +52,7 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     "self"                  { return SELF; }
     "as"                    { return AS; }
     "ovrd"                  { return OVRD; }
+    "for"                   { return FOR; }
     "if"                    { return IF; }
     "else"                  { return ELSE; }
     "return"                { return RETURN; }
@@ -76,9 +77,11 @@ FLOAT_LITERAL       = {DIGIT}"."{DIGIT}("F" | "D")?
     "~"                     { return TILDE; }
     "!"                     { return BANG; }
     "="                     { return EQUAL; }
+    "=="                    { return EQUAL_EQUAL; }
     "!="                    { return BANG_EQUAL; }
     "*"                     { return STAR; }
     "/"                     { return SLASH; }
+    "%"                     { return PERCENTAGE; }
     ">"                     { return GREATER; }
     ">>"                    { return DOUBLE_GREATER; }
     ">="                    { return GREATER_EQUAL; }

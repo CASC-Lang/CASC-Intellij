@@ -47,6 +47,12 @@ public class CASCStatementImpl extends ASTWrapperPsiElement implements CASCState
 
   @Override
   @Nullable
+  public CASCJForStatement getJForStatement() {
+    return findChildByClass(CASCJForStatement.class);
+  }
+
+  @Override
+  @Nullable
   public CASCReturnStatement getReturnStatement() {
     return findChildByClass(CASCReturnStatement.class);
   }

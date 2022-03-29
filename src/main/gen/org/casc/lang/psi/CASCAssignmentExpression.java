@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CASCExpression extends PsiElement {
+public interface CASCAssignmentExpression extends PsiElement {
 
   @NotNull
-  CASCAssignmentExpression getAssignmentExpression();
+  List<CASCConjunctionExpression> getConjunctionExpressionList();
 
 }

@@ -17,6 +17,9 @@ public interface CASCStatement extends PsiElement {
   CASCIfStatement getIfStatement();
 
   @Nullable
+  CASCJForStatement getJForStatement();
+
+  @Nullable
   CASCReturnStatement getReturnStatement();
 
   @Nullable

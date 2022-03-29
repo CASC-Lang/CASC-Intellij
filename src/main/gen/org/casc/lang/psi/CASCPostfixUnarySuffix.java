@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface CASCPostfixUnarySuffix extends PsiElement {
 
   @Nullable
-  CASCAssignSuffix getAssignSuffix();
-
-  @Nullable
   CASCCallSuffix getCallSuffix();
 
   @Nullable

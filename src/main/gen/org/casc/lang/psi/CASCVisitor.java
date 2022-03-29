@@ -35,7 +35,7 @@ public class CASCVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitAssignSuffix(@NotNull CASCAssignSuffix o) {
+  public void visitAssignmentExpression(@NotNull CASCAssignmentExpression o) {
     visitPsiElement(o);
   }
 
@@ -128,6 +128,10 @@ public class CASCVisitor extends PsiElementVisitor {
   }
 
   public void visitInfixOperationExpression(@NotNull CASCInfixOperationExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitJForStatement(@NotNull CASCJForStatement o) {
     visitPsiElement(o);
   }
 

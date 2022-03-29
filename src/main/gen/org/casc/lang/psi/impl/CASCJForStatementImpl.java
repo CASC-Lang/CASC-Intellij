@@ -11,14 +11,14 @@ import static org.casc.lang.psi.CASCTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.casc.lang.psi.*;
 
-public class CASCAssignSuffixImpl extends ASTWrapperPsiElement implements CASCAssignSuffix {
+public class CASCJForStatementImpl extends ASTWrapperPsiElement implements CASCJForStatement {
 
-  public CASCAssignSuffixImpl(@NotNull ASTNode node) {
+  public CASCJForStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CASCVisitor visitor) {
-    visitor.visitAssignSuffix(this);
+    visitor.visitJForStatement(this);
   }
 
   @Override
@@ -28,9 +28,15 @@ public class CASCAssignSuffixImpl extends ASTWrapperPsiElement implements CASCAs
   }
 
   @Override
-  @NotNull
+  @Nullable
   public CASCExpression getExpression() {
-    return findNotNullChildByClass(CASCExpression.class);
+    return findChildByClass(CASCExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public List<CASCStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, CASCStatement.class);
   }
 
 }

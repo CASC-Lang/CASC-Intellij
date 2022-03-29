@@ -46,7 +46,7 @@ constructorDeclaration  ::= NEW OPEN_PARENTHESES parameterList? CLOSE_PARENTHESE
 
 parameterList           ::= IDENTIFIER COLON complexType (COMMA IDENTIFIER COLON complexType)*
 
-statement               ::= variableDeclaration | ifStatement | blockStatement | returnStatement | expression
+statement               ::= variableDeclaration | ifStatement | blockStatement | jForStatement | returnStatement | expression
 
 variableDeclaration     ::= MUT? IDENTIFIER COLON_EQUAL expression
 
@@ -54,9 +54,13 @@ ifStatement             ::= IF expression statement (ELSE statement)?
 
 blockStatement          ::= OPEN_BRACE statement* CLOSE_BRACE
 
+jForStatement           ::= FOR statement? SEMICOLON expression? SEMICOLON statement? statement
+
 returnStatement         ::= RETURN expression?
 
-expression              ::= conjunctionExpression
+expression              ::= assignmentExpression
+
+assignmentExpression    ::= conjunctionExpression (EQUAL conjunctionExpression)*
 
 conjunctionExpression   ::= disjunctionExpression (DOUBLE_PIPE disjunctionExpression)*
 
@@ -78,7 +82,7 @@ shiftingExpression      ::= additiveExpression ((DOUBLE_GREATER | DOUBLE_LESSER 
 
 additiveExpression      ::= multiplicativeExpression ((PLUS | MINUS) multiplicativeExpression)*
 
-multiplicativeExpression::= asExpression ((STAR | SLASH) asExpression)*
+multiplicativeExpression::= asExpression ((STAR | SLASH | PERCENTAGE) asExpression)*
 
 asExpression            ::= prefixUnaryExpression (AS prefixUnaryExpression)*
 
@@ -90,7 +94,6 @@ postfixUnarySuffix      ::= (DOUBLE_PLUS | DOUBLE_MINUS)
                         | callSuffix
                         | indexSuffix
                         | memberSuffix
-                        | assignSuffix
 
 primaryExpression       ::= parenthesizedExpression
                         | arrayExpression
@@ -127,8 +130,6 @@ callSuffix              ::= OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
 indexSuffix             ::= OPEN_BRACKET expression CLOSE_BRACKET
 
 memberSuffix            ::= DOT | DOUBLE_COLON
-
-assignSuffix            ::= EQUAL expression
 
 constructorCallExpression   ::= NEW type OPEN_PARENTHESES argumentList CLOSE_PARENTHESES
 
