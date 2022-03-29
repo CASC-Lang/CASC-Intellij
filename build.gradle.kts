@@ -3,8 +3,8 @@ plugins {
     kotlin("jvm") version "1.6.10"
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "org.casc.lang"
+version = "0.1.0.0"
 
 repositories {
     mavenCentral()
@@ -24,7 +24,10 @@ intellij {
 tasks {
     patchPluginXml {
         changeNotes.set("""
-            Add change notes here.<br>
-            <em>most HTML tags may be used</em>        """.trimIndent())
+            <h1>0.1.0 Release</h1>
+                <ul>
+                <li> Support 0.1.0 keyword highlighting
+                </ul>
+        """.trimIndent())
     }
 }
