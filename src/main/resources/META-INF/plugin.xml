@@ -5,6 +5,14 @@
 
     <description><![CDATA[
     Official CASC Programming Language Plugin for Intellij IDEA
+
+    See <a href="https://github.com/CASC-Lang/CASC" target="_blank" title="CASC Programming Language">CASC Programming Language</a> for more information!
+
+    <h2> Features </h2>
+    <ul>
+        <li> Syntax highlighting </li>
+        <li> Syntax checking </li>
+    </ul>
     ]]></description>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
