@@ -2,6 +2,7 @@
     <id>org.casc.lang</id>
     <name>CASC Lang</name>
     <vendor email="minecraft.kyle.train@gmail.com">CASC Lang Org</vendor>
+    <version>0.1.0.0</version>
 
     <description><![CDATA[
     Official CASC Programming Language Plugin for Intellij IDEA
