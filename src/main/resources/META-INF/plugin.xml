@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>org.example.CASC-Intellij</id>
+    <id>org.casc.lang</id>
     <name>CASC Lang</name>
     <vendor email="minecraft.kyle.train@gmail.com">CASC Lang Org</vendor>
 
