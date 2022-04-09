@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.casc.lang"
-version = "0.1.0.0"
+version = "0.1.0.1"
 
 repositories {
     mavenCentral()
@@ -24,9 +24,9 @@ intellij {
 tasks {
     patchPluginXml {
         changeNotes.set("""
-            <h1>0.1.0 Release</h1>
+            <h1>0.1.0.1 Release</h1>
                 <ul>
-                <li> Support 0.1.0 keyword highlighting
+                <li> Fix syntax highlighting
                 </ul>
         """.trimIndent())
     }
