@@ -24,7 +24,7 @@ intellij {
 tasks {
     patchPluginXml {
         changeNotes.set("""
-            <h1>0.1.0.12 Release</h1>
+            <h1>0.1.0.2 Release</h1>
                 <ul>
                 <li> Update plugin's intellij version
                 </ul>
