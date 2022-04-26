@@ -19,7 +19,7 @@ sourceSets["main"].java.srcDirs("src/main/gen")
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version.set("2022.1")
-    plugins.add("PsiViewer:213-SNAPSHOT")
+    plugins.add("PsiViewer:221-SNAPSHOT")
 }
 tasks {
     patchPluginXml {
