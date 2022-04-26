@@ -24,9 +24,9 @@ intellij {
 tasks {
     patchPluginXml {
         changeNotes.set("""
-            <h1>0.1.0.1 Release</h1>
+            <h1>0.1.0.12 Release</h1>
                 <ul>
-                <li> Fix syntax highlighting
+                <li> Update plugin's intellij version
                 </ul>
         """.trimIndent())
     }
