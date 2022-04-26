@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.casc.lang"
-version = "0.1.0.1"
+version = "0.1.0.2"
 
 repositories {
     mavenCentral()
@@ -18,7 +18,7 @@ sourceSets["main"].java.srcDirs("src/main/gen")
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2021.3.2")
+    version.set("2022.1")
     plugins.add("PsiViewer:213-SNAPSHOT")
 }
 tasks {
